@@ -29,7 +29,7 @@ namespace kyrsovaya_2k
         {
             string login = log.Text;
             string password = pass.Password;
-            var Kurisu = a.log_is_sys(login, password);
+            List<db_work.user> Kurisu = a.log_is_sys(login, password);
 
             if (Kurisu.Count == 1)
             {
@@ -38,7 +38,7 @@ namespace kyrsovaya_2k
             else
             {
                 MessageBox.Show("Добро пожаловать, " + Kurisu[1].name + " " + Kurisu[1].patr + "!","Вы успешно вошли!");
-                work_win work= new work_win();
+                work_win work= new work_win(Kurisu);
                 work.Show();
                 Close();
             }

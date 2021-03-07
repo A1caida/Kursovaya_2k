@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace kyrsovaya_2k
 {
-    class db_work
+    public class db_work
     {
         public struct user
         {

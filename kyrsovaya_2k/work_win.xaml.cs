@@ -19,10 +19,10 @@ namespace kyrsovaya_2k
     /// </summary>
     public partial class work_win : Window
     {
-        public work_win()
+        public work_win(List <db_work.user> Kurisu)
         {
             InitializeComponent();
-            name.Text = "Aaaaa)";
+            name.Text = " "+ Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
         }
     }
 }

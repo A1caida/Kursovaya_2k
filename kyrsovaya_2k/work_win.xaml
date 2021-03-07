@@ -19,7 +19,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="name" FontSize="30"/>
+        <TextBlock x:Name="name" FontSize="30" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Window>
