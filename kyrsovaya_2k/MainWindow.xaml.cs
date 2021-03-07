@@ -28,15 +28,19 @@ namespace kyrsovaya_2k
         private void login_sys(object sender, RoutedEventArgs e)
         {
             string login = log.Text;
-            string password = pass.Text;
-            int Kurisu = a.log_is_sys(login, password);
-            if (Kurisu == 0)
+            string password = pass.Password;
+            var Kurisu = a.log_is_sys(login, password);
+
+            if (Kurisu.Count == 1)
             {
                 MessageBox.Show("Неправильное имя пользователя или пароль.");
             }
             else
             {
-                MessageBox.Show(Convert.ToString(Kurisu));
+                MessageBox.Show("Добро пожаловать, " + Kurisu[1].name + " " + Kurisu[1].patr + "!","Вы успешно вошли!");
+                work_win work= new work_win();
+                work.Show();
+                Close();
             }
         }
 

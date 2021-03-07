@@ -40,3 +40,5 @@ C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\bin\Debug\System.Runtime
 C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\kyrsovaya_2k.csproj.CopyComplete
 C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\Window1.g.cs
 C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\Window1.baml
+C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\work_win.g.cs
+C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\work_win.baml

@@ -38,10 +38,11 @@ namespace kyrsovaya_2k
             if (Kurisu == 0)
             {
                 MessageBox.Show("ok");
+                Close();
             }
             else
             {
-                MessageBox.Show("Неправильное имя пользователя или пароль.");
+                MessageBox.Show("ты кек.");
             }
         }
     }
