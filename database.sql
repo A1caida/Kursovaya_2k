@@ -180,8 +180,10 @@ INSERT INTO `ychet` (`id`, `id_oper`, `money`) VALUES
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `ban_hammer` AFTER UPDATE ON `user_info` FOR EACH ROW BEGIN
-if new.ban <> OLD.ban then
-INSERT INTO biblioteka.logss SET logss.login_id = new.id, logss.oper = "BAN";
+if new.ban = 1 then
+INSERT INTO biblioteka.logss SET logss.login_id = new.id, logss.oper = "BAN", logss.time_when = NOW();
+ELSE
+INSERT INTO biblioteka.logss SET logss.login_id = new.id, logss.oper = "UNBAN", logss.time_when = NOW();
 END if;
 END//
 DELIMITER ;
