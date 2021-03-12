@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace kyrsovaya_2k
 {
@@ -19,10 +20,22 @@ namespace kyrsovaya_2k
     /// </summary>
     public partial class work_win : Window
     {
-        public work_win(List <db_work.user> Kurisu)
+        db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
+        public work_win(List<db_work.user> Kurisu)
         {
             InitializeComponent();
-            name.Text = " "+ Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
+            name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;           
+            authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");
+        }
+
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        private void search_auth(object sender, RoutedEventArgs e)
+        {
+            int sel = authors.SelectedIndex;
+            authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', name AS 'Название', books.year AS 'Год',available AS 'Наличие' FROM books WHERE autthor_id = " + sel+1);
         }
     }
 }

@@ -35,12 +35,16 @@ namespace kyrsovaya_2k
             {
                 MessageBox.Show("Неправильное имя пользователя или пароль.");
             }
-            else
+            else if (Kurisu[1].ban == "0")
             {
                 MessageBox.Show("Добро пожаловать, " + Kurisu[1].name + " " + Kurisu[1].patr + "!","Вы успешно вошли!");
                 work_win work= new work_win(Kurisu);
                 work.Show();
                 Close();
+            }
+            else
+            {
+                MessageBox.Show("Вам бан");
             }
         }
 
