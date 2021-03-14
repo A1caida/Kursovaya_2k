@@ -23,6 +23,7 @@ namespace kyrsovaya_2k
             public string phone;
             public string ban;
         }
+        
 
         MySqlConnection Connection;
 
@@ -99,7 +100,32 @@ namespace kyrsovaya_2k
             Connection.Close();
             return null;
         }
+        public int add_authors(string surname, string name, string patr, string year)
+        {
+            MySqlCommand command = Connection.CreateCommand();
+            command.CommandText = "INSERT INTO author_info(surname, name, patronymic,born) VALUES(?surname, ?name, ?patronymic, ?born)"; //INSERT INTO `biblioteka`.`user_info` (`login`, `password`, `surname`, `name`, `patronymic`, `phone`, `lvl`) VALUES ('A1caida', 'ch3bur', 'Ахмедханов', 'Рамис', 'Нурутдинович', '79347542389', '3');
+            command.Parameters.Add("?surname", MySqlDbType.VarChar).Value = surname;
+            command.Parameters.Add("?name", MySqlDbType.VarChar).Value = name;
+            command.Parameters.Add("?patronymic", MySqlDbType.VarChar).Value = patr;
+            command.Parameters.Add("?born", MySqlDbType.VarChar).Value = year;
 
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
         public int reg_in_sys(string login, string password,string surname, string name, string priv, string phone)
         {
             MySqlCommand command = Connection.CreateCommand();
