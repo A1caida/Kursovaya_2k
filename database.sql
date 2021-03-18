@@ -24,14 +24,17 @@ CREATE TABLE IF NOT EXISTS `author_info` (
   `patronymic` varchar(50) DEFAULT NULL,
   `born` varchar(4) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table biblioteka.author_info: ~0 rows (approximately)
+-- Dumping data for table biblioteka.author_info: ~5 rows (approximately)
 DELETE FROM `author_info`;
 /*!40000 ALTER TABLE `author_info` DISABLE KEYS */;
 INSERT INTO `author_info` (`id`, `surname`, `name`, `patronymic`, `born`) VALUES
 	(1, 'Пушкин', 'Александр', 'Сергеевич', '1799'),
-	(2, 'Есенин', 'Сергей', 'Александрович', '1895');
+	(2, 'Есенин', 'Сергей', 'Александрович', '1895'),
+	(3, 'Толстой', 'Лев', 'Николаевич', '1828'),
+	(4, 'Маяковский', 'Владимир', 'Владимирович', '1893'),
+	(5, 'Лермонтов', 'Михаил', 'Юрьевич', '1814');
 /*!40000 ALTER TABLE `author_info` ENABLE KEYS */;
 
 -- Dumping structure for table biblioteka.books
@@ -44,13 +47,15 @@ CREATE TABLE IF NOT EXISTS `books` (
   PRIMARY KEY (`id`),
   KEY `FK_books_author_info` (`autthor_id`),
   CONSTRAINT `FK_books_author_info` FOREIGN KEY (`autthor_id`) REFERENCES `author_info` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table biblioteka.books: ~0 rows (approximately)
 DELETE FROM `books`;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
 INSERT INTO `books` (`id`, `autthor_id`, `name`, `year`, `available`) VALUES
-	(1, 1, 'Капитанская дочка', '1836', 1);
+	(1, 1, 'Капитанская дочка', '1836', 1),
+	(2, 2, 'Анна Снегина', '1925', 1),
+	(3, 1, 'Пиковая дама', '1834', 1);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 
 -- Dumping structure for table biblioteka.borrowed_books
@@ -59,18 +64,17 @@ CREATE TABLE IF NOT EXISTS `borrowed_books` (
   `login_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `date` date NOT NULL,
+  `date_end` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_borrowed_books_user` (`login_id`),
   KEY `FK_borrowed_books_books` (`book_id`),
+  KEY `FK_borrowed_books_user_info` (`login_id`),
   CONSTRAINT `FK_borrowed_books_books` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
-  CONSTRAINT `FK_borrowed_books_user` FOREIGN KEY (`login_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK_borrowed_books_user_info` FOREIGN KEY (`login_id`) REFERENCES `user_info` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table biblioteka.borrowed_books: ~0 rows (approximately)
 DELETE FROM `borrowed_books`;
 /*!40000 ALTER TABLE `borrowed_books` DISABLE KEYS */;
-INSERT INTO `borrowed_books` (`id`, `login_id`, `book_id`, `date`) VALUES
-	(1, 1, 1, '2021-03-04');
 /*!40000 ALTER TABLE `borrowed_books` ENABLE KEYS */;
 
 -- Dumping structure for table biblioteka.logss
@@ -78,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `logss` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login_id` int(11) NOT NULL,
   `oper` varchar(50) NOT NULL DEFAULT '',
+  `time_when` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_ban_hammer_user_info` (`login_id`),
   CONSTRAINT `FK_ban_hammer_user_info` FOREIGN KEY (`login_id`) REFERENCES `user_info` (`id`)
@@ -86,9 +91,9 @@ CREATE TABLE IF NOT EXISTS `logss` (
 -- Dumping data for table biblioteka.logss: ~0 rows (approximately)
 DELETE FROM `logss`;
 /*!40000 ALTER TABLE `logss` DISABLE KEYS */;
-INSERT INTO `logss` (`id`, `login_id`, `oper`) VALUES
-	(1, 14, 'INSERT'),
-	(2, 9, 'BAN');
+INSERT INTO `logss` (`id`, `login_id`, `oper`, `time_when`) VALUES
+	(1, 14, 'INSERT', '2021-03-10 19:48:15'),
+	(2, 9, 'BAN', '2021-03-10 19:48:16');
 /*!40000 ALTER TABLE `logss` ENABLE KEYS */;
 
 -- Dumping structure for table biblioteka.magazine
@@ -193,7 +198,7 @@ SET SQL_MODE=@OLDTMP_SQL_MODE;
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
 CREATE TRIGGER `logger` AFTER INSERT ON `user_info` FOR EACH ROW BEGIN
-INSERT INTO biblioteka.logss SET logss.login_id = NEW.id, logss.oper = "INSERT";
+INSERT INTO biblioteka.logss SET logss.login_id = NEW.id, logss.oper = "INSERT", logss.time_when = NOW();
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
