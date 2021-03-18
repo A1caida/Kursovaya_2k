@@ -27,30 +27,55 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Grid.Column="0">
-                        <Button x:Name="s_auth" Click="search_auth" Content="Поиск" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Width="120" Height="33"  />
+
+                        <TextBox x:Name="sear" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Button x:Name="s_auth" Click="search_auth" Content="Поиск"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                        <Button x:Name="books_auth" Click="bookss_auth" Content="Поиск по выделенному"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="170" Height="33" Margin="0,5,10,5"  />
+
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
                         <DataGrid x:Name="authors" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
                     </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
+                        <DataGrid x:Name="books" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Добавить">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
                     <Grid Grid.Row="2" Grid.Column="1">
-                        <TextBox x:Name="authsur" Width="190" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"  />
-
-
-
-
+                        <TextBox x:Name="authsur" Width="190" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"  PreviewTextInput="LettersOnly"/>
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="1">
-                        <TextBox x:Name="authname" Width="190" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"   />
+                        <TextBox x:Name="authname" Width="190" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"  PreviewTextInput="LettersOnly" />
                     </Grid>
                     <Grid Grid.Row="4" Grid.Column="1">
-                        <TextBox x:Name="authpatr" Width="190" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+                        <TextBox x:Name="authpatr" Width="190" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" PreviewTextInput="LettersOnly"/>
                     </Grid>
                     <Grid Grid.Row="5" Grid.Column="1">
-                        <TextBox x:Name="authyear" Width="190" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"   />
+                        <TextBox x:Name="authyear" Width="190" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center"   PreviewTextInput="NumericOnly"/>
                     </Grid>
                     <Grid Grid.Row="6" Grid.Column="1">
                         <Button x:Name="add_auth" Click="add_authh" Content="Добавить" HorizontalAlignment="Center" VerticalAlignment="Center" Width="190" Height="20"  />

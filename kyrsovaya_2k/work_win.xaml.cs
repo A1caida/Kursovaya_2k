@@ -28,14 +28,35 @@ namespace kyrsovaya_2k
             authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
         }
 
+        private void NumericOnly(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !(Char.IsDigit(e.Text, 0));
+            if (e.Handled == true)
+                MessageBox.Show("Можно писать только цифры!");//сделай попап
+        }
+
+        private void LettersOnly(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = Char.IsDigit(e.Text, 0);
+            if(e.Handled == true)
+                MessageBox.Show("Можно писать только буквы!");
+        }
+
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
         private void search_auth(object sender, RoutedEventArgs e)
         {
-            int sel = authors.SelectedIndex;//фикс плз
-            authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', name AS 'Название', books.year AS 'Год',available AS 'Наличие' FROM books WHERE autthor_id = " + sel+1);//AS 'Номер'
+            //int sel = authors.SelectedIndex;//фикс плз
+            string sel = sear.Text;
+            authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' OR born LIKE '%" + sel + "%'");//AS 'Номер'
+        }
+
+        private void bookss_auth(object sender, RoutedEventArgs e)
+        {
+            DataRowView row = authors.SelectedItem as DataRowView;               
+            books.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE autthor_id = " + row.Row.ItemArray[0].ToString());
         }
         private void add_authh(object sender, RoutedEventArgs e)
         {
@@ -47,7 +68,7 @@ namespace kyrsovaya_2k
             if (a.add_authors(sur, name, patr, year) == 0)
             {
                 MessageBox.Show("ok");
-                authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");
+                authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM autthor_info");
             }
             else
             {
