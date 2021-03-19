@@ -1,44 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Data;
-
-
-namespace kyrsovaya_2k
-{
-    /// <summary>
-    /// Логика взаимодействия для auth_ad.xaml
-    /// </summary>
-    public partial class take_books : Window
-    {
-        db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
-        public take_books()
-        {
-            InitializeComponent();
-            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0");//проверь запрос
-        }
-        private void sear(object sender, RoutedEventArgs e)//проверь
-        {
-            string sel = search.Text;
-            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0 and surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' OR born LIKE '%" + sel + "%'");
-        }
-
-        private void give_to_man(object sender, RoutedEventArgs e)//проверь
-        {
-            DataRowView row = users.SelectedItem as DataRowView;
-
-
-
-        }
-    }
-}
+<Window x:Class="kyrsovaya_2k.take_books"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:kyrsovaya_2k"
+        mc:Ignorable="d"
+        Title="auth_ad" Height="450" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="0.3*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="search" HorizontalAlignment="Center" VerticalAlignment="Top" Width="370"  Grid.Row="0"/>
+        <Button x:Name="sear" Click="sear" Content="Поиск" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="37" Width="254" Grid.Row="0" />
+        <DataGrid x:Name="users" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="241" Width="422" RowHeight="16" IsReadOnly="True" SelectionMode="Single"  Grid.Row="1" />
+        <Button x:Name="add" Click="give_to_man" Content="Отдать" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="272" Grid.Row="2" />
+    </Grid>
+</Window>
