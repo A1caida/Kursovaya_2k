@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -58,6 +58,14 @@ namespace kyrsovaya_2k
             DataRowView row = authors.SelectedItem as DataRowView;               
             books.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE autthor_id = " + row.Row.ItemArray[0].ToString());
         }
+
+        private void borrow_bookss(object sender, RoutedEventArgs e)
+        {
+            DataRowView row = books.SelectedItem as DataRowView;
+            take_books win = new take_books();
+            win.Show();
+        }
+
         private void add_authh(object sender, RoutedEventArgs e)
         {
             string sur = authsur.Text;
@@ -77,5 +85,6 @@ namespace kyrsovaya_2k
 
         }
 
+       
     }
 }
