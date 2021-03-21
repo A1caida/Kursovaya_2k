@@ -24,8 +24,9 @@ namespace kyrsovaya_2k
         public work_win(List<db_work.user> Kurisu)
         {
             InitializeComponent();
-            name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;           
+            name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
             authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
+            borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды??' FROM borrowed_books JOIN books on book_id = books.id WHERE login_id = " + Kurisu[1].id);
         }
 
         private void NumericOnly(object sender, TextCompositionEventArgs e)
@@ -38,7 +39,7 @@ namespace kyrsovaya_2k
         private void LettersOnly(object sender, TextCompositionEventArgs e)
         {
             e.Handled = Char.IsDigit(e.Text, 0);
-            if(e.Handled == true)
+            if (e.Handled == true)
                 MessageBox.Show("Можно писать только буквы!");
         }
 
@@ -47,24 +48,31 @@ namespace kyrsovaya_2k
 
         }
         private void search_auth(object sender, RoutedEventArgs e)
-        {
-            //int sel = authors.SelectedIndex;//фикс плз
+        {          
             string sel = sear.Text;
             authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' OR born LIKE '%" + sel + "%'");//AS 'Номер'
         }
 
         private void bookss_auth(object sender, RoutedEventArgs e)
         {
-            DataRowView row = authors.SelectedItem as DataRowView;               
-            books.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE autthor_id = " + row.Row.ItemArray[0].ToString());
+            DataRowView row = authors.SelectedItem as DataRowView;
+            books.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available > 0 AND autthor_id = " + row.Row.ItemArray[0].ToString());
         }
+
+        private void borrow_bookss(object sender, RoutedEventArgs e)//чек на выбранную книгу
+        {
+            DataRowView row = books.SelectedItem as DataRowView;
+            take_books win = new take_books(row.Row.ItemArray[0].ToString());
+            win.Show();
+        }
+
         private void add_authh(object sender, RoutedEventArgs e)
         {
             string sur = authsur.Text;
             string name = authname.Text;
             string patr = authpatr.Text;
             string year = authyear.Text;
-            
+
             if (a.add_authors(sur, name, patr, year) == 0)
             {
                 MessageBox.Show("ok");
@@ -77,5 +85,9 @@ namespace kyrsovaya_2k
 
         }
 
+        private void Books_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

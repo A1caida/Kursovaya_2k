@@ -42,3 +42,5 @@ C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\Window1.g.cs
 C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\Window1.baml
 C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\work_win.g.cs
 C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\work_win.baml
+C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\take_books.g.cs
+C:\Users\A1caida\source\repos\kyrsovaya_2k\kyrsovaya_2k\obj\Debug\take_books.baml

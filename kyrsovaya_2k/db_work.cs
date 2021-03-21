@@ -15,6 +15,7 @@ namespace kyrsovaya_2k
     {
         public struct user
         {
+            public int id;
             public string login;
             public int lvl;
             public string surname;
@@ -79,6 +80,7 @@ namespace kyrsovaya_2k
                     {
                         user databd = new user
                         {
+                            id = reader.GetInt32(0),
                             login = reader.GetString(1),
                             lvl = reader.GetInt32(3),
                             surname = reader.GetString(4),
@@ -156,5 +158,53 @@ namespace kyrsovaya_2k
             return -1;
         }
 
+        public int give_book(int login, int book)
+        {
+            MySqlCommand command = Connection.CreateCommand();
+            command.CommandText = "INSERT INTO borrowed_books(login_id, book_id, date, date_end) VALUES(?login_id, ?book_id, ?date, ?date_end)"; //UPDATE `biblioteka`.`books` SET `available`='0' WHERE  `id`=1;
+            command.Parameters.Add("?login_id", MySqlDbType.Int32).Value = login;
+            command.Parameters.Add("?book_id", MySqlDbType.Int32).Value = book;
+            command.Parameters.Add("?date", MySqlDbType.Timestamp).Value = DateTime.Now;
+            command.Parameters.Add("?date_end", MySqlDbType.VarChar).Value = DateTime.Now.AddDays(14);  
+
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
+
+        public int available(int book)
+        {
+            MySqlCommand command = Connection.CreateCommand();
+            command.CommandText = "UPDATE `biblioteka`.`books` SET `available`='0' WHERE  `id`=" + book; //UPDATE `biblioteka`.`books` SET `available`='0' WHERE  `id`=1;        
+           
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
     }
 }
