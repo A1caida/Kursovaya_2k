@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -66,6 +66,16 @@ namespace kyrsovaya_2k
             win.Show();
         }
 
+<<<<<<< HEAD
+=======
+        private void borrow_bookss(object sender, RoutedEventArgs e)
+        {
+            DataRowView row = books.SelectedItem as DataRowView;
+            take_books win = new take_books();
+            win.Show();
+        }
+
+>>>>>>> 44e6079324c99ab571c4eb2bd6dec9873afc6f13
         private void add_authh(object sender, RoutedEventArgs e)
         {
             string sur = authsur.Text;
@@ -85,9 +95,13 @@ namespace kyrsovaya_2k
 
         }
 
+<<<<<<< HEAD
         private void Books_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+=======
+       
+>>>>>>> 44e6079324c99ab571c4eb2bd6dec9873afc6f13
     }
 }
