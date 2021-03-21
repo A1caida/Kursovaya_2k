@@ -26,7 +26,8 @@ namespace kyrsovaya_2k
             InitializeComponent();
             name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
             authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
-            borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды??' FROM borrowed_books JOIN books on book_id = books.id WHERE login_id = " + Kurisu[1].id);
+            borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды??' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
+            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0");
         }
 
         private void NumericOnly(object sender, TextCompositionEventArgs e)
@@ -41,11 +42,6 @@ namespace kyrsovaya_2k
             e.Handled = Char.IsDigit(e.Text, 0);
             if (e.Handled == true)
                 MessageBox.Show("Можно писать только буквы!");
-        }
-
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
         private void search_auth(object sender, RoutedEventArgs e)
         {          
@@ -66,16 +62,6 @@ namespace kyrsovaya_2k
             win.Show();
         }
 
-<<<<<<< HEAD
-=======
-        private void borrow_bookss(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = books.SelectedItem as DataRowView;
-            take_books win = new take_books();
-            win.Show();
-        }
-
->>>>>>> 44e6079324c99ab571c4eb2bd6dec9873afc6f13
         private void add_authh(object sender, RoutedEventArgs e)
         {
             string sur = authsur.Text;
@@ -95,13 +81,23 @@ namespace kyrsovaya_2k
 
         }
 
-<<<<<<< HEAD
-        private void Books_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void search_users(object sender, RoutedEventArgs e)
         {
-
+            string sel = sear.Text;
+            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' ");//AS 'Номер'
         }
-=======
-       
->>>>>>> 44e6079324c99ab571c4eb2bd6dec9873afc6f13
+
+        private void bookss_users(object sender, RoutedEventArgs e)
+        {
+            DataRowView row = users.SelectedItem as DataRowView;
+            user_books.DataContext = a.getTableInfoo("SELECT borrowed_books.id AS 'Номер', name AS 'Название' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + row.Row.ItemArray[0].ToString());
+        }
+
+        private void take_book(object sender, RoutedEventArgs e)
+        {        
+            DataRowView row = user_books.SelectedItem as DataRowView;
+            a.back(Convert.ToInt32(row.Row.ItemArray[0].ToString()));
+            a.available(row.Row.ItemArray[1].ToString());//потом сделай бокс
+        }
     }
 }

@@ -8,7 +8,7 @@
         Title="Библиотека" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
 
-        <TabControl Grid.ColumnSpan="2" Grid.RowSpan="5" SelectionChanged="TabControl_SelectionChanged">
+        <TabControl Grid.ColumnSpan="2" Grid.RowSpan="5">
             <TabItem Header="Общее"><!--////////////////////////////////////////////////-->
                 
                 <Grid>
@@ -53,8 +53,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Grid.Column="0">
-
-                        <TextBox x:Name="sear" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                        <TextBox x:Name="sear" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" />
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0">
                         <Button x:Name="s_auth" Click="search_auth" Content="Поиск"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
@@ -65,7 +64,7 @@
                         <DataGrid x:Name="authors" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
-                        <DataGrid x:Name="books" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" SelectionChanged="Books_SelectionChanged" />
+                        <DataGrid x:Name="books" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="1">
                         <Button x:Name="borrow" Click="borrow_bookss" Content="Взять"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"   />
@@ -109,8 +108,42 @@
                     
                 </Grid>
             </TabItem>
-            <TabItem Header="Забрать"> <!--Так лень, сделай потом-->
-                
+            <TabItem Header="Забрать">
+                <!--Так лень, сделай потом-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBox x:Name="searсhuser" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" PreviewTextInput="LettersOnly"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Button x:Name="tbook" Click="take_book" Content="Забрать"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Button x:Name="s_users" Click="search_users" Content="Поиск пользователя"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                        <Button x:Name="s_books" Click="bookss_users" Content="Поиск по выделенному"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="170" Height="33" Margin="0,5,10,5"  />
+
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
+                        <DataGrid x:Name="users" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
+                        <DataGrid x:Name="user_books" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single"/>
+                    </Grid>
+                </Grid>
             </TabItem>
         </TabControl>
 

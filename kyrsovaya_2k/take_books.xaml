@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿<Window x:Class="kyrsovaya_2k.take_books"
-=======
 <Window x:Class="kyrsovaya_2k.take_books"
->>>>>>> 44e6079324c99ab571c4eb2bd6dec9873afc6f13
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,16 +13,8 @@
             <RowDefinition Height="0.3*"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBox x:Name="search" HorizontalAlignment="Center" VerticalAlignment="Top" Width="370"  Grid.Row="0"/>
-<<<<<<< HEAD
         <Button x:Name="sear" Click="seear" Content="Поиск" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="37" Width="254" Grid.Row="0" />
         <DataGrid x:Name="users" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="241" Width="422" RowHeight="16" IsReadOnly="True" SelectionMode="Single"  Grid.Row="1" />
         <Button x:Name="add" Click="give_to_man" Content="Отдать" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="272" Grid.Row="2" />
     </Grid>
 </Window>
-=======
-        <Button x:Name="sear" Click="sear" Content="Поиск" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="37" Width="254" Grid.Row="0" />
-        <DataGrid x:Name="users" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="241" Width="422" RowHeight="16" IsReadOnly="True" SelectionMode="Single"  Grid.Row="1" />
-        <Button x:Name="add" Click="give_to_man" Content="Отдать" HorizontalAlignment="Center" VerticalAlignment="Center" Height="55" Width="272" Grid.Row="2" />
-    </Grid>
-</Window>
->>>>>>> 44e6079324c99ab571c4eb2bd6dec9873afc6f13
