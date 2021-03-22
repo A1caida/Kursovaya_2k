@@ -30,9 +30,9 @@ namespace kyrsovaya_2k
         {
             string login = log.Text;
             string password = pas.Text;
-            string sur = surname.Text;
-            string nam = name.Text;
-            string pat = priv.Text;
+            string sur = a.registr_letters(surname.Text);
+            string nam = a.registr_letters(name.Text);
+            string pat = a.registr_letters(priv.Text);
             string pho = phone.Text;
             int Kurisu = a.reg_in_sys(login, password,sur,nam,pat, pho);
             if (Kurisu == 0)
