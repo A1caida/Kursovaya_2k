@@ -27,6 +27,13 @@ namespace kyrsovaya_2k
         
 
         MySqlConnection Connection;
+       
+       public string registr_letters(string owo)
+        {
+            owo.ToLower();
+            owo = owo.Substring(0, 1).ToUpper() + owo.Remove(0, 1);
+            return owo;
+        }
 
         public db_work(string server, string user, string pass, string database)
         {
