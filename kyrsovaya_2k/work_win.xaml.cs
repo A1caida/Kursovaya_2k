@@ -96,8 +96,18 @@ namespace kyrsovaya_2k
         private void take_book(object sender, RoutedEventArgs e)
         {        
             DataRowView row = user_books.SelectedItem as DataRowView;
-            a.back(Convert.ToInt32(row.Row.ItemArray[0].ToString()));
-            a.available(row.Row.ItemArray[1].ToString());//потом сделай бокс
+            //a.back(Convert.ToInt32(row.Row.ItemArray[0].ToString()));
+            //a.available(row.Row.ItemArray[1].ToString());//потом сделай бокс
+
+            if((a.back(Convert.ToInt32(row.Row.ItemArray[0].ToString())) == 0) && (a.available(row.Row.ItemArray[1].ToString())==0))
+            {
+                MessageBox.Show("ok");//апдейт датагрида
+            }
+            else
+            {
+                MessageBox.Show("ты кек.");
+            }
+
         }
     }
 }
