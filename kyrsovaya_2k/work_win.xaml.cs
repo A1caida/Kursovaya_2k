@@ -64,11 +64,11 @@ namespace kyrsovaya_2k
 
         private void add_authh(object sender, RoutedEventArgs e)
         {
-            string sur = authsur.Text;
-            string name = authname.Text;
-            string patr = authpatr.Text;
-            string year = authyear.Text;
-
+            string sur = a.registr_letters(authsur.Text); 
+            string name = a.registr_letters(authname.Text);
+            string patr = a.registr_letters(authpatr.Text);
+            string year = a.registr_letters(authyear.Text);
+            
             if (a.add_authors(sur, name, patr, year) == 0)
             {
                 MessageBox.Show("ok");
