@@ -62,19 +62,26 @@ INSERT INTO `books` (`id`, `autthor_id`, `name`, `year`, `available`) VALUES
 CREATE TABLE IF NOT EXISTS `borrowed_books` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login_id` int(11) NOT NULL,
-  `book_id` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `date_end` date DEFAULT NULL,
+  `book_id` int(11) NOT NULL DEFAULT 0,
+  `date` timestamp NULL DEFAULT NULL,
+  `date_back` timestamp NULL DEFAULT NULL,
+  `date_end` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_borrowed_books_books` (`book_id`),
   KEY `FK_borrowed_books_user_info` (`login_id`),
   CONSTRAINT `FK_borrowed_books_books` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
   CONSTRAINT `FK_borrowed_books_user_info` FOREIGN KEY (`login_id`) REFERENCES `user_info` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table biblioteka.borrowed_books: ~0 rows (approximately)
+-- Dumping data for table biblioteka.borrowed_books: ~4 rows (approximately)
 DELETE FROM `borrowed_books`;
 /*!40000 ALTER TABLE `borrowed_books` DISABLE KEYS */;
+INSERT INTO `borrowed_books` (`id`, `login_id`, `book_id`, `date`, `date_back`, `date_end`) VALUES
+	(2, 5, 1, '2021-03-21 11:29:01', '2021-03-21 19:31:50', '2021-04-04 11:29:01'),
+	(3, 5, 3, '2021-03-21 19:10:08', '2021-03-21 19:54:13', '2021-04-04 19:10:08'),
+	(4, 5, 1, '2021-03-21 19:41:36', '2021-03-21 20:03:51', '2021-04-04 19:41:36'),
+	(5, 6, 2, '2021-03-23 16:41:08', '2021-03-23 16:41:35', '2021-04-06 16:41:08'),
+	(6, 6, 3, '2021-03-23 20:54:54', '2021-03-23 20:55:08', '2021-04-06 20:54:54');
 /*!40000 ALTER TABLE `borrowed_books` ENABLE KEYS */;
 
 -- Dumping structure for table biblioteka.logss
