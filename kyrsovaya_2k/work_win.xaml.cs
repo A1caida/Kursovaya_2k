@@ -28,6 +28,13 @@ namespace kyrsovaya_2k
             authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
             borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды??' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
             users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0");
+            boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books");
+            if (Kurisu[1].lvl == 1)
+            {
+                take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed;//tabs
+                
+                borrow.Visibility = Visibility.Collapsed; borroww.Visibility = Visibility.Collapsed;//buttons
+            }
         }
 
         private void NumericOnly(object sender, TextCompositionEventArgs e)
@@ -62,6 +69,14 @@ namespace kyrsovaya_2k
             win.Show();
         }
 
+        private void borrowww(object sender, RoutedEventArgs e)//чек на выбранную книгу
+        {
+            DataRowView row = boook.SelectedItem as DataRowView;
+            take_books win = new take_books(row.Row.ItemArray[0].ToString());
+            win.Show();
+        }
+
+
         private void add_authh(object sender, RoutedEventArgs e)
         {
             string sur = a.registr_letters(authsur.Text); 
@@ -79,6 +94,11 @@ namespace kyrsovaya_2k
                 MessageBox.Show("ты кек.");
             }
 
+        }
+
+        private void book_yea(object sender, RoutedEventArgs e)
+        {
+            boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE YEAR ='"+yea.Text+"'");
         }
 
         private void search_users(object sender, RoutedEventArgs e)

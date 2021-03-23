@@ -9,7 +9,7 @@
     <Grid>
 
         <TabControl Grid.ColumnSpan="2" Grid.RowSpan="5">
-            <TabItem Header="Общее"><!--////////////////////////////////////////////////-->
+            <TabItem Header="Общее" x:Name="general" ><!--////////////////////////////////////////////////-->
                 
                 <Grid>
                     <Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Авторы"><!--////////////////////////////////////////////////-->
+            <TabItem Header="Поиск по авторам" x:Name="search_auths"><!--////////////////////////////////////////////////-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -71,7 +71,38 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Добавить"> <!--////////////////////////////////////////////////-->
+            <TabItem Header="Поиск по году" x:Name="search_year">
+                <!--////////////////////////////////////////////////-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBox x:Name="yea" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" PreviewTextInput="NumericOnly"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Button x:Name="book_ye" Click="book_yea" Content="Поиск"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                        <Button x:Name="borroww" Click="borrowww" Content="Взять"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="170" Height="33" Margin="0,5,10,5"   />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
+                        <DataGrid x:Name="boook" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                    </Grid>
+                 
+                </Grid>
+            </TabItem>
+            <TabItem Header="Добавить" x:Name="add"> <!--////////////////////////////////////////////////-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -108,7 +139,7 @@
                     
                 </Grid>
             </TabItem>
-            <TabItem Header="Забрать">
+            <TabItem Header="Забрать" x:Name="take">
                 <!--Так лень, сделай потом-->
                 <Grid>
                     <Grid.RowDefinitions>
