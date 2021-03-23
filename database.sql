@@ -168,7 +168,8 @@ INSERT INTO `user_info` (`id`, `login`, `password`, `lvl`, `surname`, `name`, `p
 	(7, 'Liora', '123', 1, 'Микеев', 'Айрат', 'Дамирович', '79347672356', 0),
 	(8, 'mud', '123', 1, 'Иванов', 'Иван', 'Иванович', '79456236489', 0),
 	(9, 'as', 'asd', 1, 'Фамилия', 'Имя', 'Отчество', '12345678900', 1),
-	(14, 'dsfdsfds', 'sdfsfs', 1, 'sdfdsf', 'sdfdsfds', NULL, '324324', 1);
+	(14, 'dsfdsfds', 'sdfsfs', 1, 'sdfdsf', 'sdfdsfds', NULL, '324324', 1),
+	(15, 'gbf', '123', 1, 'Попов', 'Григорий', 'Николаевич', '79236103578', 1);
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 
 -- Dumping structure for table biblioteka.ychet
