@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace kyrsovaya_2k
 {
-   
+
     public class db_work
     {
         public struct user
@@ -24,13 +24,13 @@ namespace kyrsovaya_2k
             public string phone;
             public string ban;
         }
-        
+
 
         MySqlConnection Connection;
-       
-       public string registr_letters(string owo)
+
+        public string registr_letters(string owo)
         {
-            for(int i = 0;i<owo.Length;i++)
+            for (int i = 0; i < owo.Length; i++)
                 owo = owo.Substring(i, 1).ToLower() + owo.Remove(i, 1);
             owo = owo.Substring(0, 1).ToUpper() + owo.Remove(0, 1);
             return owo;
@@ -102,7 +102,7 @@ namespace kyrsovaya_2k
                 }
                 Connection.Close();
                 return bd;
-            }  
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -113,7 +113,7 @@ namespace kyrsovaya_2k
         public int add_authors(string surname, string name, string patr, string year)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "INSERT INTO author_info(surname, name, patronymic,born) VALUES(?surname, ?name, ?patronymic, ?born)"; 
+            command.CommandText = "INSERT INTO author_info(surname, name, patronymic,born) VALUES(?surname, ?name, ?patronymic, ?born)";
             command.Parameters.Add("?surname", MySqlDbType.VarChar).Value = surname;
             command.Parameters.Add("?name", MySqlDbType.VarChar).Value = name;
             command.Parameters.Add("?patronymic", MySqlDbType.VarChar).Value = patr;
@@ -136,10 +136,10 @@ namespace kyrsovaya_2k
             }
             return -1;
         }
-        public int reg_in_sys(string login, string password,string surname, string name, string priv, string phone)
+        public int reg_in_sys(string login, string password, string surname, string name, string priv, string phone)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "INSERT INTO user_info(login, password, surname, name, patronymic, phone, lvl, ban) VALUES(?login, ?password, ?surname, ?name, ?patronymic, ?phone, ?lvl, ?ban)"; 
+            command.CommandText = "INSERT INTO user_info(login, password, surname, name, patronymic, phone, lvl, ban) VALUES(?login, ?password, ?surname, ?name, ?patronymic, ?phone, ?lvl, ?ban)";
             command.Parameters.Add("?login", MySqlDbType.VarChar).Value = login;
             command.Parameters.Add("?password", MySqlDbType.VarChar).Value = password;
             command.Parameters.Add("?lvl", MySqlDbType.VarChar).Value = 1;
@@ -152,7 +152,7 @@ namespace kyrsovaya_2k
             {
                 Connection.Open();
                 command.ExecuteNonQuery();
-               
+
                 return 0;
             }
             catch (Exception ex)
@@ -169,7 +169,7 @@ namespace kyrsovaya_2k
         public int give_book(int login, int book)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "INSERT INTO borrowed_books(login_id, book_id, date, date_end) VALUES(?login_id, ?book_id, ?date, ?date_end)"; 
+            command.CommandText = "INSERT INTO borrowed_books(login_id, book_id, date, date_end) VALUES(?login_id, ?book_id, ?date, ?date_end)";
             command.Parameters.Add("?login_id", MySqlDbType.Int32).Value = login;
             command.Parameters.Add("?book_id", MySqlDbType.Int32).Value = book;
             command.Parameters.Add("?date", MySqlDbType.Timestamp).Value = DateTime.Now;
@@ -196,8 +196,8 @@ namespace kyrsovaya_2k
         public int available(int book)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "UPDATE `biblioteka`.`books` SET `available`='0' WHERE  `id`=" + book;     
-           
+            command.CommandText = "UPDATE `biblioteka`.`books` SET `available`='0' WHERE  `id`=" + book;
+
             try
             {
                 Connection.Open();
@@ -217,7 +217,7 @@ namespace kyrsovaya_2k
         public int available(string book)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "UPDATE `biblioteka`.`books` SET `available`='1' WHERE `name`='" + book+ "'";
+            command.CommandText = "UPDATE `biblioteka`.`books` SET `available`='1' WHERE `name`='" + book + "'";
 
 
             try
@@ -241,6 +241,60 @@ namespace kyrsovaya_2k
             MySqlCommand command = Connection.CreateCommand();
             command.CommandText = "UPDATE `biblioteka`.`borrowed_books` SET `date_back`= ?date_back WHERE `id`=" + id;
             command.Parameters.Add("?date_back", MySqlDbType.Timestamp).Value = DateTime.Now;
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
+        public int import()
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.Filter = "CSV Files (*.csv)|*.csv";
+            Nullable<bool> result = dlg.ShowDialog();
+            string filename = "";
+            if (result == true)
+            {
+
+                filename = dlg.FileName;
+            }
+
+            MySqlCommand command = Connection.CreateCommand();
+            command.CommandText = "LOAD DATA INFILE @filename INTO TABLE biblioteka.author_info FIELDS TERMINATED BY ','";
+            command.Parameters.AddWithValue("@filename", filename);
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
+
+
+        public int ban(string id)
+        {
+            MySqlCommand command = Connection.CreateCommand();
+            command.CommandText = "UPDATE `biblioteka`.`user_info` SET `ban`= 1 WHERE `id`=" + id;
+
             try
             {
                 Connection.Open();

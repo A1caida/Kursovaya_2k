@@ -9,8 +9,9 @@
     <Grid>
 
         <TabControl Grid.ColumnSpan="2" Grid.RowSpan="5">
-            <TabItem Header="Общее" x:Name="general" ><!--////////////////////////////////////////////////-->
-                
+            <TabItem Header="Общее" x:Name="general" >
+                <!--////////////////////////////////////////////////-->
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -35,7 +36,8 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Поиск по авторам" x:Name="search_auths"><!--////////////////////////////////////////////////-->
+            <TabItem Header="Поиск по авторам" x:Name="search_auths">
+                <!--////////////////////////////////////////////////-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -57,16 +59,16 @@
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0">
                         <Button x:Name="s_auth" Click="search_auth" Content="Поиск"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" />
-                       
+
 
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
                         <DataGrid x:Name="authors" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" >
-                        <DataGrid.ItemContainerStyle>
-                            <Style TargetType="DataGridRow">
-                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick_auth"/>
-                            </Style>
-                        </DataGrid.ItemContainerStyle>
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="DataGridRow">
+                                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick_auth"/>
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
                         </DataGrid>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
@@ -105,10 +107,11 @@
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
                         <DataGrid x:Name="boook" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
                     </Grid>
-                 
+
                 </Grid>
             </TabItem>
-            <TabItem Header="Добавить" x:Name="add"> <!--////////////////////////////////////////////////-->
+            <TabItem Header="Добавить" x:Name="add">
+                <!--////////////////////////////////////////////////-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -142,10 +145,11 @@
                     <Grid Grid.Row="6" Grid.Column="1">
                         <Button x:Name="add_auth" Click="add_authh" Content="Добавить" HorizontalAlignment="Center" VerticalAlignment="Center" Width="190" Height="20"  />
                     </Grid>
-                    
+
                 </Grid>
             </TabItem>
-            <TabItem Header="Забрать" x:Name="take"> <!--////////////////////////////////////////////////-->
+            <TabItem Header="Забрать" x:Name="take">
+                <!--////////////////////////////////////////////////-->
                 <!--Так лень, сделай потом-->
                 <Grid>
                     <Grid.RowDefinitions>
@@ -182,8 +186,8 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Пользователи" x:Name="user_list"><!--////////////////////////////////////////////////-->
-               
+            <TabItem Header="Пользователи" x:Name="user_list">
+                <!--////////////////////////////////////////////////-->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -203,25 +207,51 @@
                     <Grid Grid.Row="0" Grid.Column="0">
                         <TextBox x:Name="searchofusers" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" PreviewTextInput="LettersOnly"/>
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <Button x:Name="block" Click="ban_ham" Content="Заблокировать"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
-                    </Grid>
+
                     <Grid Grid.Row="1" Grid.Column="0">
-                        <Button x:Name="but" Click="sear_us" Content="Поиск"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
-                        <Button x:Name="butt" Click="user_info" Content="Информация о пользователе"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="170" Height="33" Margin="0,5,10,5"  />
+                        <Button x:Name="but" Click="sear_us" Content="Поиск"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
 
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
                         <DataGrid x:Name="listofusers" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" >
-                        <DataGrid.ItemContainerStyle>
-                            <Style TargetType="DataGridRow">
-                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
-                            </Style>
-                        </DataGrid.ItemContainerStyle>
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="DataGridRow">
+                                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
                         </DataGrid>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
                         <DataGrid x:Name="logsofbooks" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                    </Grid>
+                    <Grid Grid.Row="7" Grid.Column="1">
+                        <Button x:Name="block" Click="ban_ham" Content="Заблокировать"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Импорт/экспорт" x:Name="import_export">
+                <!--////////////////////////////////////////////////-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Button x:Name="imp" Click="imp_auth" Content="Импорт авторов"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
+                        <DataGrid x:Name="import_data" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
                     </Grid>
                 </Grid>
             </TabItem>
