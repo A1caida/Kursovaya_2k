@@ -30,7 +30,8 @@ namespace kyrsovaya_2k
        
        public string registr_letters(string owo)
         {
-            owo.ToLower();
+            for(int i = 0;i<owo.Length;i++)
+                owo = owo.Substring(i, 1).ToLower() + owo.Remove(i, 1);
             owo = owo.Substring(0, 1).ToUpper() + owo.Remove(0, 1);
             return owo;
         }
