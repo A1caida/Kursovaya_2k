@@ -28,11 +28,12 @@ namespace kyrsovaya_2k
             authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
             borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды??' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
             users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0");
-            boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books");
+            boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available>0");
+            listofusers.DataContext = a.getTableInfoo("SELECT id AS 'Номер', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info");
             if (Kurisu[1].lvl == 1)
             {
-                take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed;//tabs
-                
+                take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed; user_list.Visibility = Visibility.Collapsed;//tabs
+
                 borrow.Visibility = Visibility.Collapsed; borroww.Visibility = Visibility.Collapsed;//buttons
             }
         }
@@ -55,13 +56,7 @@ namespace kyrsovaya_2k
             string sel = sear.Text;
             authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' OR born LIKE '%" + sel + "%'");//AS 'Номер'
         }
-
-        private void bookss_auth(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = authors.SelectedItem as DataRowView;
-            books.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available > 0 AND autthor_id = " + row.Row.ItemArray[0].ToString());
-        }
-
+  
         private void borrow_bookss(object sender, RoutedEventArgs e)//чек на выбранную книгу
         {
             DataRowView row = books.SelectedItem as DataRowView;
@@ -128,6 +123,28 @@ namespace kyrsovaya_2k
                 MessageBox.Show("ты кек.");
             }
 
+        }
+        private void ban_ham(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void sear_us(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void user_info(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView row = listofusers.SelectedItem as DataRowView;
+            logsofbooks.DataContext = a.getTableInfoo("SELECT NAME AS 'Название', DATE AS 'дата', date_back,date_end FROM borrowed_books JOIN books ON book_id = books.id WHERE login_id ="+ row.Row.ItemArray[0].ToString());
+        }
+        private void Row_DoubleClick_auth(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView row = authors.SelectedItem as DataRowView;
+            books.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available > 0 AND autthor_id = " + row.Row.ItemArray[0].ToString());
         }
     }
 }
