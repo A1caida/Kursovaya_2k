@@ -56,12 +56,18 @@
                         <TextBox x:Name="sear" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" />
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0">
-                        <Button x:Name="s_auth" Click="search_auth" Content="Поиск"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
-                        <Button x:Name="books_auth" Click="bookss_auth" Content="Поиск по выделенному"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="170" Height="33" Margin="0,5,10,5"  />
+                        <Button x:Name="s_auth" Click="search_auth" Content="Поиск"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" />
+                       
 
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
-                        <DataGrid x:Name="authors" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                        <DataGrid x:Name="authors" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" >
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick_auth"/>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                        </DataGrid>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
                         <DataGrid x:Name="books" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
@@ -139,7 +145,7 @@
                     
                 </Grid>
             </TabItem>
-            <TabItem Header="Забрать" x:Name="take">
+            <TabItem Header="Забрать" x:Name="take"> <!--////////////////////////////////////////////////-->
                 <!--Так лень, сделай потом-->
                 <Grid>
                     <Grid.RowDefinitions>
@@ -173,6 +179,49 @@
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
                         <DataGrid x:Name="user_books" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Пользователи" x:Name="user_list"><!--////////////////////////////////////////////////-->
+               
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBox x:Name="searchofusers" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" PreviewTextInput="LettersOnly"/>
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Button x:Name="block" Click="ban_ham" Content="Заблокировать"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Button x:Name="but" Click="sear_us" Content="Поиск"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                        <Button x:Name="butt" Click="user_info" Content="Информация о пользователе"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="170" Height="33" Margin="0,5,10,5"  />
+
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
+                        <DataGrid x:Name="listofusers" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" >
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                        </DataGrid>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
+                        <DataGrid x:Name="logsofbooks" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
                     </Grid>
                 </Grid>
             </TabItem>
