@@ -136,3 +136,6 @@ C:\Kursovaya_2k\kyrsovaya_2k\obj\Debug\kyrsovaya_2k.csproj.CoreCompileInputs.cac
 C:\Kursovaya_2k\kyrsovaya_2k\obj\Debug\kyrsovaya_2k.csproj.CopyComplete
 C:\Kursovaya_2k\kyrsovaya_2k\obj\Debug\kyrsovaya_2k.exe
 C:\Kursovaya_2k\kyrsovaya_2k\obj\Debug\kyrsovaya_2k.pdb
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Ookii.Dialogs.Wpf.dll
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Ookii.Dialogs.Wpf.pdb
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Ookii.Dialogs.Wpf.xml

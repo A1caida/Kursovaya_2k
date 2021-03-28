@@ -248,7 +248,13 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="1" Grid.Column="0">
-                        <Button x:Name="imp" Click="imp_auth" Content="Импорт авторов"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                        <Button x:Name="imp" Click="imp_auth" Content="Импорт авторов"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Button x:Name="exp" Click="exp_auth" Content="Экспорт авторов"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <TextBox x:Name="exp_name"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" />
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
                         <DataGrid x:Name="import_data" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />

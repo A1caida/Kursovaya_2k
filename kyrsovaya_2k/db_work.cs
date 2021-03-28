@@ -30,8 +30,13 @@ namespace kyrsovaya_2k
 
         public string registr_letters(string owo)
         {
+            //owo.ToLower();
             for (int i = 0; i < owo.Length; i++)
-                owo = owo.Substring(i, 1).ToLower() + owo.Remove(i, 1);
+            {               
+                string uwu = owo.Substring(i, 1).ToLower();
+                owo = owo.Remove(i, 1);
+                owo = owo.Insert(i, uwu);
+            }
             owo = owo.Substring(0, 1).ToUpper() + owo.Remove(0, 1);
             return owo;
         }
@@ -289,6 +294,39 @@ namespace kyrsovaya_2k
             return -1;
         }
 
+        public int export(string name)
+        {
+            string path= "";
+            var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                path = dialog.SelectedPath;
+            }
+            path = path + "\\" + name + ".csv";
+            //path = path + "/" + name+".csv";
+            //path = path.Replace("\\", "/");
+            MySqlCommand command = Connection.CreateCommand();
+            //command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '"+ path +"' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
+
+            command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '@path' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
+            command.Parameters.AddWithValue("@path", path);
+
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
 
         public int ban(string id)
         {

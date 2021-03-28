@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Data;
 using System.IO;
 
+
 namespace kyrsovaya_2k
 {
     /// <summary>
@@ -78,12 +79,12 @@ namespace kyrsovaya_2k
             string sur = a.registr_letters(authsur.Text);
             string name = a.registr_letters(authname.Text);
             string patr = a.registr_letters(authpatr.Text);
-            string year = a.registr_letters(authyear.Text);
+            string year = authyear.Text;
 
             if (a.add_authors(sur, name, patr, year) == 0)
             {
                 MessageBox.Show("ok");
-                authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM autthor_info");
+                authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");
             }
             else
             {
@@ -159,6 +160,25 @@ namespace kyrsovaya_2k
             else
             {
                 MessageBox.Show("ты кек.");
+            }
+        }
+
+        private void exp_auth(object sender, RoutedEventArgs e)
+        {
+            if(exp_name.Text == "")
+            {
+                MessageBox.Show("Название файла не может быть пустым!","Ошибка!", 0, MessageBoxImage.Error);
+            }
+            else
+            {
+                if (a.export(exp_name.Text) == 0)
+                {
+                    MessageBox.Show("ok");
+                }
+                else
+                {
+                    MessageBox.Show("ты кек.");
+                }
             }
         }
     }
