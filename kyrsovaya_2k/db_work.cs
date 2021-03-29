@@ -270,7 +270,6 @@ namespace kyrsovaya_2k
             string filename = "";
             if (result == true)
             {
-
                 filename = dlg.FileName;
             }
 
@@ -302,14 +301,10 @@ namespace kyrsovaya_2k
             {
                 path = dialog.SelectedPath;
             }
-            path = path + "\\" + name + ".csv";
-            //path = path + "/" + name+".csv";
-            //path = path.Replace("\\", "/");
+            path = path + "/" + name + ".csv";
+            path = path.Replace("\\", "/");
             MySqlCommand command = Connection.CreateCommand();
-            //command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '"+ path +"' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
-
-            command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '@path' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
-            command.Parameters.AddWithValue("@path", path);
+            command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '"+ path +"' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
 
             try
             {
@@ -332,6 +327,32 @@ namespace kyrsovaya_2k
         {
             MySqlCommand command = Connection.CreateCommand();
             command.CommandText = "UPDATE `biblioteka`.`user_info` SET `ban`= 1 WHERE `id`=" + id;
+
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
+        public int moneygobrr(int oper, string costFO ,string how_many, int cost)
+        {
+            MySqlCommand command = Connection.CreateCommand();
+            command.CommandText = "INSERT INTO `biblioteka`.`logs_oper` (`oper_id`, `costFO`, `how_many`, `cost`, `date_when`) VALUES(?oper, ?costFO, ?how_many, ?cost, ?date_when)";
+            command.Parameters.Add("?oper", MySqlDbType.Int32).Value = oper;
+            command.Parameters.Add("?costFO", MySqlDbType.Int32).Value = Convert.ToInt32(costFO);
+            command.Parameters.Add("?how_many", MySqlDbType.Int32).Value = Convert.ToInt32(how_many);
+            command.Parameters.Add("?cost", MySqlDbType.Int32).Value = cost;
+            command.Parameters.Add("?date_when", MySqlDbType.Timestamp).Value = DateTime.Now;
 
             try
             {

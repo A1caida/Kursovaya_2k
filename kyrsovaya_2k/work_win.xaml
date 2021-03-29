@@ -110,6 +110,36 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Список газет" x:Name="search_magazin">
+                <!--////////////////////////////////////////////////-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBox x:Name="sear_mag" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Button x:Name="searmag" Content="Поиск" Click="search_magaz" Width="170" Height="33" HorizontalAlignment="Center"  VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
+                        <DataGrid x:Name="magazin" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                    </Grid>
+
+                </Grid>
+            </TabItem>
             <TabItem Header="Добавить" x:Name="add">
                 <!--////////////////////////////////////////////////-->
                 <Grid>
@@ -258,6 +288,37 @@
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
                         <DataGrid x:Name="import_data" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Учет" x:Name="ychet">
+                <!--////////////////////////////////////////////////-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
+                        <DataGrid x:Name="ychet_data" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <ComboBox ItemsSource="{Binding}" x:Name="oper_id" HorizontalAlignment="Left" VerticalAlignment="Center" Width="178" Height="23" DisplayMemberPath="name" SelectedValuePath="id" IsTextSearchEnabled="False" IsEditable="False"   />
+                        <Button x:Name="vpered_k_dengam" Content="Учет!" Click="money_ych" HorizontalAlignment="right" VerticalAlignment="Center" Width="186" Height="23"  />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1">
+                        <TextBox x:Name="money" HorizontalAlignment="Left" VerticalAlignment="Center" Width="186" Height="23" />
+                        <TextBox x:Name="lists" HorizontalAlignment="Right" VerticalAlignment="Center" Width="186" Height="23" />
                     </Grid>
                 </Grid>
             </TabItem>

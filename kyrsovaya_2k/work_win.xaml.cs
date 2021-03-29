@@ -23,18 +23,26 @@ namespace kyrsovaya_2k
     public partial class work_win : Window
     {
         db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
+
+        private void up_to_date()
+        {
+            authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
+            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0");
+            boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available>0");
+            listofusers.DataContext = a.getTableInfoo("SELECT id AS 'Номер', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info");
+            oper_id.ItemsSource = a.getTableInfoo("SELECT id, name FROM operation").AsDataView();
+            magazin.DataContext = a.getTableInfoo("SELECT id AS'Номер', NAME AS 'Название', DATE AS 'Число' FROM magazine");
+            ychet_data.DataContext = a.getTableInfoo("SELECT logs_oper.id AS 'Номер', NAME AS 'Операция', costFO AS 'Цена за шт.', how_many AS 'Кол-во', cost AS 'Цена', date_when AS 'Дата' FROM logs_oper JOIN operation ON oper_id = operation.id");
+        }
         public work_win(List<db_work.user> Kurisu)
         {
             InitializeComponent();
             name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
-            authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
             borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды??' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
-            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0");
-            boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available>0");
-            listofusers.DataContext = a.getTableInfoo("SELECT id AS 'Номер', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info");
+            up_to_date();
             if (Kurisu[1].lvl == 1)
             {
-                take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed; user_list.Visibility = Visibility.Collapsed;//tabs
+                take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed; user_list.Visibility = Visibility.Collapsed; ychet.Visibility = Visibility.Collapsed; import_export.Visibility = Visibility.Collapsed;//tabs
 
                 borrow.Visibility = Visibility.Collapsed; borroww.Visibility = Visibility.Collapsed;//buttons
             }
@@ -64,6 +72,7 @@ namespace kyrsovaya_2k
             DataRowView row = books.SelectedItem as DataRowView;
             take_books win = new take_books(row.Row.ItemArray[0].ToString());
             win.Show();
+            up_to_date();
         }
 
         private void borrowww(object sender, RoutedEventArgs e)//чек на выбранную книгу
@@ -71,6 +80,7 @@ namespace kyrsovaya_2k
             DataRowView row = boook.SelectedItem as DataRowView;
             take_books win = new take_books(row.Row.ItemArray[0].ToString());
             win.Show();
+            up_to_date();
         }
 
 
@@ -90,24 +100,26 @@ namespace kyrsovaya_2k
             {
                 MessageBox.Show("ты кек.");
             }
-
+            up_to_date();
         }
 
         private void book_yea(object sender, RoutedEventArgs e)
         {
             boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE YEAR ='" + yea.Text + "'");
+            up_to_date();
         }
 
         private void search_users(object sender, RoutedEventArgs e)
         {
             string sel = sear.Text;
-            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' ");//AS 'Номер'
+            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' ");
         }
 
         private void bookss_users(object sender, RoutedEventArgs e)
         {
             DataRowView row = users.SelectedItem as DataRowView;
             user_books.DataContext = a.getTableInfoo("SELECT borrowed_books.id AS 'Номер', name AS 'Название' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + row.Row.ItemArray[0].ToString());
+            up_to_date();
         }
 
         private void take_book(object sender, RoutedEventArgs e)
@@ -122,7 +134,7 @@ namespace kyrsovaya_2k
             {
                 MessageBox.Show("ты кек.");
             }
-
+            up_to_date();
         }
         private void ban_ham(object sender, RoutedEventArgs e)
         {
@@ -135,6 +147,7 @@ namespace kyrsovaya_2k
             {
                 MessageBox.Show("ты кек.");
             }
+            up_to_date();
         }
         private void sear_us(object sender, RoutedEventArgs e)
         {
@@ -145,11 +158,13 @@ namespace kyrsovaya_2k
         {
             DataRowView row = listofusers.SelectedItem as DataRowView;
             logsofbooks.DataContext = a.getTableInfoo("SELECT NAME AS 'Название', DATE AS 'дата', date_back,date_end FROM borrowed_books JOIN books ON book_id = books.id WHERE login_id =" + row.Row.ItemArray[0].ToString());
+            up_to_date();
         }
         private void Row_DoubleClick_auth(object sender, MouseButtonEventArgs e)
         {
             DataRowView row = authors.SelectedItem as DataRowView;
             books.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available > 0 AND autthor_id = " + row.Row.ItemArray[0].ToString());
+            up_to_date();
         }
         private void imp_auth(object sender, RoutedEventArgs e)
         {
@@ -161,6 +176,7 @@ namespace kyrsovaya_2k
             {
                 MessageBox.Show("ты кек.");
             }
+            up_to_date();
         }
 
         private void exp_auth(object sender, RoutedEventArgs e)
@@ -180,6 +196,28 @@ namespace kyrsovaya_2k
                     MessageBox.Show("ты кек.");
                 }
             }
+            up_to_date();
         }
+        private void money_ych(object sender, RoutedEventArgs e)
+        {
+            int cost = Convert.ToInt32(money.Text) * Convert.ToInt32(lists.Text);
+
+            if (a.moneygobrr(Convert.ToInt32(oper_id.SelectedValue),money.Text, lists.Text, cost) == 0)
+            {
+                MessageBox.Show("ok");
+            }
+            else
+            {
+                MessageBox.Show("ты кек.");
+            }
+            up_to_date();
+        }
+
+        private void search_magaz(object sender, RoutedEventArgs e)
+        {
+            magazin.DataContext = a.getTableInfoo("SELECT id AS'Номер', NAME AS 'Название', DATE AS 'Число' FROM magazine WHERE NAME LIKE '%"+ sear_mag.Text + "%'");
+            //up_to_date();
+        }
+
     }
 }
