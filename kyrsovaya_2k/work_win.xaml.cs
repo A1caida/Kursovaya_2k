@@ -33,6 +33,7 @@ namespace kyrsovaya_2k
             oper_id.ItemsSource = a.getTableInfoo("SELECT id, name FROM operation").AsDataView();
             magazin.DataContext = a.getTableInfoo("SELECT id AS'Номер', NAME AS 'Название', DATE AS 'Число' FROM magazine");
             ychet_data.DataContext = a.getTableInfoo("SELECT logs_oper.id AS 'Номер', NAME AS 'Операция', costFO AS 'Цена за шт.', how_many AS 'Кол-во', cost AS 'Цена', date_when AS 'Дата' FROM logs_oper JOIN operation ON oper_id = operation.id");
+            post.DataContext = a.getTableInfoo("SELECT id AS'Номер', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");
         }
         public work_win(List<db_work.user> Kurisu)
         {
@@ -181,9 +182,9 @@ namespace kyrsovaya_2k
 
         private void exp_auth(object sender, RoutedEventArgs e)
         {
-            if(exp_name.Text == "")
+            if (exp_name.Text == "")
             {
-                MessageBox.Show("Название файла не может быть пустым!","Ошибка!", 0, MessageBoxImage.Error);
+                MessageBox.Show("Название файла не может быть пустым!", "Ошибка!", 0, MessageBoxImage.Error);
             }
             else
             {
@@ -202,7 +203,7 @@ namespace kyrsovaya_2k
         {
             int cost = Convert.ToInt32(money.Text) * Convert.ToInt32(lists.Text);
 
-            if (a.moneygobrr(Convert.ToInt32(oper_id.SelectedValue),money.Text, lists.Text, cost) == 0)
+            if (a.moneygobrr(Convert.ToInt32(oper_id.SelectedValue), money.Text, lists.Text, cost) == 0)
             {
                 MessageBox.Show("ok");
             }
@@ -215,9 +216,13 @@ namespace kyrsovaya_2k
 
         private void search_magaz(object sender, RoutedEventArgs e)
         {
-            magazin.DataContext = a.getTableInfoo("SELECT id AS'Номер', NAME AS 'Название', DATE AS 'Число' FROM magazine WHERE NAME LIKE '%"+ sear_mag.Text + "%'");
+            magazin.DataContext = a.getTableInfoo("SELECT id AS'Номер', NAME AS 'Название', DATE AS 'Число' FROM magazine WHERE NAME LIKE '%" + sear_mag.Text + "%'");
             //up_to_date();
         }
 
+        private void post_sear(object sender, RoutedEventArgs e)
+        {
+            post.DataContext = a.getTableInfoo("SELECT id AS'Номер', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");//тут поменяй запрос
+        }
     }
 }
