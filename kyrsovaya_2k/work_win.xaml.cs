@@ -219,5 +219,9 @@ namespace kyrsovaya_2k
             //up_to_date();
         }
 
+        private void post_sear(object sender, RoutedEventArgs e)
+        {
+            post.DataContext = a.getTableInfoo("SELECT id AS'Номер', NAME AS 'Название', DATE AS 'Число' FROM magazine WHERE NAME LIKE '%" + sear_post.Text + "%'");//тут поменяй запрос
+        }
     }
 }
