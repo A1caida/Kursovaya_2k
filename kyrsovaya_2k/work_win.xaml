@@ -322,6 +322,39 @@
                     </Grid>
                 </Grid>
             </TabItem>
+            <TabItem Header="Поставщики" x:Name="postavshik">
+                <!--////////////////////////////////////////////////-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <TextBox x:Name="sear_post" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="269" Height="20" />
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <Button Content="Поиск" Click="post_sear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
+                        <DataGrid x:Name="post" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
+                        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" VerticalAlignment="Center"  Stroke="Black"  Height="200" Width="378"/>
+                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="376"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
         </TabControl>
 
 
