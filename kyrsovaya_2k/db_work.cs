@@ -141,6 +141,34 @@ namespace kyrsovaya_2k
             }
             return -1;
         }
+
+        public int add_books(int id, string name, int available, string year)
+        {
+            MySqlCommand command = Connection.CreateCommand();
+            command.CommandText = "INSERT INTO books(autthor_id, name, year,available) VALUES(?autthor_id, ?name, ?year, ?available)";//INSERT INTO `biblioteka`.`books` (`autthor_id`, `name`, `year`, `available`) VALUES ('3', 'Детство', '1852', '1');
+            command.Parameters.Add("?autthor_id", MySqlDbType.Int32).Value = id;
+            command.Parameters.Add("?name", MySqlDbType.VarChar).Value = name;
+            command.Parameters.Add("?year", MySqlDbType.VarChar).Value = year;
+            command.Parameters.Add("?available", MySqlDbType.Int32).Value = available;
+
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
+
         public int reg_in_sys(string login, string password, string surname, string name, string priv, string phone)
         {
             MySqlCommand command = Connection.CreateCommand();

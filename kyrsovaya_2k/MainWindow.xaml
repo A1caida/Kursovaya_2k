@@ -128,16 +128,36 @@
         </TextBlock>
         <TextBox x:Name="log" 
                  FontFamily="fonts/#Noto Sans" 
+                 Width="274"
                  Height="50"  
-                 TextWrapping="Wrap" 
-                 Text="login" 
+                 TextWrapping="Wrap"              
                  Grid.Row="1" 
+                 Grid.ColumnSpan="3"
                  HorizontalAlignment="Center" 
-                 VerticalAlignment="Center" 
-                 Width="274" 
-                 Grid.ColumnSpan="3"                 
-                 FontSize="30" Style="{DynamicResource dizain}">
+                 VerticalAlignment="Center"                        
+                 FontSize="35" Style="{DynamicResource dizain}">
         </TextBox>
+        <TextBlock IsHitTestVisible="False" 
+                   Text="login" 
+                   FontSize="35"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"  
+                   Foreground="DarkGray"
+                   Width="274"
+                   Height="50" 
+                   Grid.Row="1" 
+                   Grid.ColumnSpan="3">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=log}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
         <PasswordBox x:Name="pass"
                      Height="50"
                      Grid.Row="2" 
@@ -145,7 +165,7 @@
                      VerticalAlignment="Center" 
                      Width="274" 
                      Grid.ColumnSpan="3" 
-                     FontSize="30" Style="{DynamicResource pasdizain}"/>
+                     FontSize="35" Style="{DynamicResource pasdizain}"/>
         <Button Content="Войти" 
                 Click="login_sys"                
                 Foreground="White" 
@@ -185,10 +205,10 @@
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
-                    <Setter Property="Background" Value="#5181b8"/>
+                    <Setter Property="Background" Value="#4bb34b"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#2e5a8c"/>
+                            <Setter Property="Background" Value="#309630"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>

@@ -26,14 +26,15 @@ namespace kyrsovaya_2k
 
         private void up_to_date()
         {
-            authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
-            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0");
-            boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available>0");
-            listofusers.DataContext = a.getTableInfoo("SELECT id AS 'Номер', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info");
+            authors.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");//SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info
+            users.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', user_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE ban = 0");
+            boook.DataContext = a.getTableInfoo("SELECT id AS '#', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available>0");
+            listofusers.DataContext = a.getTableInfoo("SELECT id AS '#', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info");
             oper_id.ItemsSource = a.getTableInfoo("SELECT id, name FROM operation").AsDataView();
-            magazin.DataContext = a.getTableInfoo("SELECT id AS'Номер', NAME AS 'Название', DATE AS 'Число' FROM magazine");
+            magazin.DataContext = a.getTableInfoo("SELECT id AS'#', NAME AS 'Название', DATE AS 'Число' FROM magazine");
             ychet_data.DataContext = a.getTableInfoo("SELECT logs_oper.id AS 'Номер', NAME AS 'Операция', costFO AS 'Цена за шт.', how_many AS 'Кол-во', cost AS 'Цена', date_when AS 'Дата' FROM logs_oper JOIN operation ON oper_id = operation.id");
-            post.DataContext = a.getTableInfoo("SELECT id AS'Номер', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");
+            post.DataContext = a.getTableInfoo("SELECT id AS'#', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");
+            authorsid.ItemsSource = a.getTableInfoo("SELECT id, surname FROM author_info").AsDataView();
         }
         public work_win(List<db_work.user> Kurisu)
         {
@@ -106,20 +107,20 @@ namespace kyrsovaya_2k
 
         private void book_yea(object sender, RoutedEventArgs e)
         {
-            boook.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE YEAR ='" + yea.Text + "'");
+            boook.DataContext = a.getTableInfoo("SELECT id AS '#', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE YEAR ='" + yea.Text + "'");
             up_to_date();
         }
 
         private void search_users(object sender, RoutedEventArgs e)
         {
             string sel = sear.Text;
-            users.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' ");
+            users.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' ");
         }
 
         private void bookss_users(object sender, RoutedEventArgs e)
         {
             DataRowView row = users.SelectedItem as DataRowView;
-            user_books.DataContext = a.getTableInfoo("SELECT borrowed_books.id AS 'Номер', name AS 'Название' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + row.Row.ItemArray[0].ToString());
+            user_books.DataContext = a.getTableInfoo("SELECT borrowed_books.id AS '#', name AS 'Название' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + row.Row.ItemArray[0].ToString());
             up_to_date();
         }
 
@@ -164,7 +165,7 @@ namespace kyrsovaya_2k
         private void Row_DoubleClick_auth(object sender, MouseButtonEventArgs e)
         {
             DataRowView row = authors.SelectedItem as DataRowView;
-            books.DataContext = a.getTableInfoo("SELECT id AS 'Номер', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available > 0 AND autthor_id = " + row.Row.ItemArray[0].ToString());
+            books.DataContext = a.getTableInfoo("SELECT id AS '#', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available > 0 AND autthor_id = " + row.Row.ItemArray[0].ToString());
             up_to_date();
         }
         private void imp_auth(object sender, RoutedEventArgs e)
@@ -216,13 +217,18 @@ namespace kyrsovaya_2k
 
         private void search_magaz(object sender, RoutedEventArgs e)
         {
-            magazin.DataContext = a.getTableInfoo("SELECT id AS'Номер', NAME AS 'Название', DATE AS 'Число' FROM magazine WHERE NAME LIKE '%" + sear_mag.Text + "%'");
+            magazin.DataContext = a.getTableInfoo("SELECT id AS'#', NAME AS 'Название', DATE AS 'Число' FROM magazine WHERE NAME LIKE '%" + sear_mag.Text + "%'");
             //up_to_date();
         }
 
         private void post_sear(object sender, RoutedEventArgs e)
         {
-            post.DataContext = a.getTableInfoo("SELECT id AS'Номер', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");//тут поменяй запрос
+            post.DataContext = a.getTableInfoo("SELECT id AS'#', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");//тут поменяй запрос
+        }
+
+        private void add_book(object sender, RoutedEventArgs e)
+        {
+            a.add_books(Convert.ToInt32(authorsid.SelectedItem), bookname.Text,Convert.ToInt32(availbook.Text), yearbook.Text);
         }
     }
 }
