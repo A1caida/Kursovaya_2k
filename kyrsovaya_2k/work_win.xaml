@@ -666,6 +666,99 @@
                             </Button.Template>
                         </Button>
                     </Grid>
+                    <Grid Grid.Row="1" Grid.Column="3">
+                        <TextBlock Text="Газеты" 
+                                   FontFamily="fonts/#Noto Sans"
+                                   FontSize="30"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="3">
+                        <TextBox x:Name="magazname" 
+                                 Width="190" 
+                                 Height="20" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"   
+                                 FontFamily="fonts/#Noto Sans"
+                                 Style="{DynamicResource stylefortext}"/>
+                    </Grid>
+                    <Grid Grid.Row="3" Grid.Column="3">
+                        <DatePicker Name="datepicker" 
+                                    IsDropDownOpen="False" 
+                                    SelectedDateFormat="Short" 
+                                    Width="190" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"
+                                    PreviewTextInput="NumericOnly"
+                                    Text="Выберите дату"/>
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="3">
+                        <Button Click="add_magazine"
+                                Content="Добавить газету"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="190" Height="20" 
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="5" Grid.Column="3">
+                        <TextBlock Text="Читатели" 
+                                   FontFamily="fonts/#Noto Sans"
+                                   FontSize="30"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Grid.Row="6" Grid.Column="3">
+                        <Button Click="add_user"
+                                Content="Регистрация"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="190" Height="20" 
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Забрать" x:Name="take">

@@ -169,6 +169,32 @@ namespace kyrsovaya_2k
             return -1;
         }
 
+        public int add_magazine(string name, DateTime? date)
+        {
+            MySqlCommand command = Connection.CreateCommand();
+            command.CommandText = "INSERT INTO magazine(name, date) VALUES(?name, ?date)";
+            command.Parameters.Add("?name", MySqlDbType.VarChar).Value = name;
+            command.Parameters.Add("?date", MySqlDbType.Date).Value = date;
+
+
+            try
+            {
+                Connection.Open();
+                command.ExecuteNonQuery();
+
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Connection.Close();
+            }
+            return -1;
+        }
+
         public int reg_in_sys(string login, string password, string surname, string name, string priv, string phone)
         {
             MySqlCommand command = Connection.CreateCommand();

@@ -32,7 +32,7 @@ namespace kyrsovaya_2k
             listofusers.DataContext = a.getTableInfoo("SELECT id AS '#', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info");
             oper_id.ItemsSource = a.getTableInfoo("SELECT id, name FROM operation").AsDataView();
             magazin.DataContext = a.getTableInfoo("SELECT id AS'#', NAME AS 'Название', DATE AS 'Число' FROM magazine");
-            ychet_data.DataContext = a.getTableInfoo("SELECT logs_oper.id AS 'Номер', NAME AS 'Операция', costFO AS 'Цена за шт.', how_many AS 'Кол-во', cost AS 'Цена', date_when AS 'Дата' FROM logs_oper JOIN operation ON oper_id = operation.id");
+            ychet_data.DataContext = a.getTableInfoo("SELECT logs_oper.id AS '#', NAME AS 'Операция', costFO AS 'Цена за шт', how_many AS 'Кол-во', cost AS 'Цена', date_when AS 'Дата' FROM logs_oper JOIN operation ON oper_id = operation.id");
             post.DataContext = a.getTableInfoo("SELECT id AS'#', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");
             authorsid.ItemsSource = a.getTableInfoo("SELECT id, surname FROM author_info").AsDataView();
         }
@@ -42,11 +42,24 @@ namespace kyrsovaya_2k
             name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
             borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды??' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
             up_to_date();
+
+            switch (Kurisu[1].lvl)
+            {
+                case 1:
+                    take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed; user_list.Visibility = Visibility.Collapsed; ychet.Visibility = Visibility.Collapsed; import_export.Visibility = Visibility.Collapsed; postavshik.Visibility = Visibility.Collapsed;//tabs
+
+                    borrow.Visibility = Visibility.Collapsed; borroww.Visibility = Visibility.Collapsed;//buttons
+                    break;
+                case 2:
+                    user_list.Visibility = Visibility.Collapsed; postavshik.Visibility = Visibility.Collapsed; //tabs
+                    break;
+                default:
+                    //Console.WriteLine("Default case");
+                    break;
+            }
             if (Kurisu[1].lvl == 1)
             {
-                take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed; user_list.Visibility = Visibility.Collapsed; ychet.Visibility = Visibility.Collapsed; import_export.Visibility = Visibility.Collapsed;//tabs
-
-                borrow.Visibility = Visibility.Collapsed; borroww.Visibility = Visibility.Collapsed;//buttons
+                
             }
         }
 
@@ -228,7 +241,34 @@ namespace kyrsovaya_2k
 
         private void add_book(object sender, RoutedEventArgs e)
         {
-            a.add_books(Convert.ToInt32(authorsid.SelectedItem), bookname.Text,Convert.ToInt32(availbook.Text), yearbook.Text);
+           
+            if (a.add_books(Convert.ToInt32(authorsid.SelectedValue), bookname.Text, Convert.ToInt32(availbook.Text), yearbook.Text) == 0)
+            {
+                MessageBox.Show("ok");
+            }
+            else
+            {
+                MessageBox.Show("ты кек.");
+            }
+            up_to_date();
+
+        }
+        private void add_magazine(object sender, RoutedEventArgs e)
+        {
+            if (a.add_magazine(magazname.Text, datepicker.SelectedDate) == 0)
+            {
+                MessageBox.Show("ok");
+            }
+            else
+            {
+                MessageBox.Show("ты кек.");
+            }
+            up_to_date();
+        }
+        private void add_user(object sender, RoutedEventArgs e)
+        {
+            Window1 reg = new Window1();
+            reg.Show();
         }
     }
 }
