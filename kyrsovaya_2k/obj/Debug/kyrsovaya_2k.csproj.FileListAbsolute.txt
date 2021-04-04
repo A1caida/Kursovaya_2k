@@ -139,3 +139,11 @@ C:\Kursovaya_2k\kyrsovaya_2k\obj\Debug\kyrsovaya_2k.pdb
 C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Ookii.Dialogs.Wpf.dll
 C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Ookii.Dialogs.Wpf.pdb
 C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Ookii.Dialogs.Wpf.xml
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\CsvHelper.dll
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Microsoft.Bcl.HashCode.dll
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\CsvHelper.xml
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\Microsoft.Bcl.HashCode.xml
+C:\Kursovaya_2k\kyrsovaya_2k\bin\Debug\System.Threading.Tasks.Extensions.xml

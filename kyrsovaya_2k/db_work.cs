@@ -7,10 +7,22 @@ using MySql.Data.MySqlClient;
 using System.Data.Common;
 using System.Data;
 using System.Windows;
+using CsvHelper;
+using System.Globalization;
+using System.IO;
 
 namespace kyrsovaya_2k
 {
+    public class Foo
+    {
+        public string surn { get; set; }
+        public string nam { get; set; }
+        public string patr { get; set; }
+        public string name { get; set; }
+        public string year { get; set; }
+        public int ava { get; set; }
 
+    }
     public class db_work
     {
         public struct user
@@ -53,6 +65,65 @@ namespace kyrsovaya_2k
                 CharacterSet = "utf8"
             };
             Connection = new MySqlConnection(Connect.ConnectionString);
+        }
+
+        public int import_books()
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.Filter = "CSV Files (*.csv)|*.csv";
+            Nullable<bool> result = dlg.ShowDialog();
+            string filename = "";
+            if (result == true)
+            {
+                filename = dlg.FileName;
+            }
+
+            var records = new List<Foo>();
+            using (var reader = new StreamReader(filename))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var record = new Foo
+                    {
+                        surn = csv.GetField("Фамилия"),
+                        nam = csv.GetField("Имя"),
+                        patr = csv.GetField("Отчество"),
+                        name = csv.GetField("Название"),
+                        year = csv.GetField("Год"),
+                        ava = csv.GetField<int>("Кол-во")
+                    };
+                    records.Add(record);
+                }
+            }
+
+            foreach (var i in records)
+            {
+                MySqlCommand command = Connection.CreateCommand();
+                command.CommandText = "SELECT id FROM author_info WHERE surname LIKE '%"+ i.surn + "%' and author_info.name LIKE '%" + i.nam + "%' and patronymic LIKE '%" + i.patr + "%'";
+
+                int auth_id = 0;
+                Connection.Open();
+                using (DbDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        auth_id = reader.GetInt32(0);
+
+                Connection.Close();
+                command = Connection.CreateCommand();
+                command.CommandText = "INSERT INTO books(autthor_id, name, year,available) VALUES(?autthor_id, ?name, ?year, ?available)";
+                command.Parameters.Add("?autthor_id", MySqlDbType.Int32).Value = auth_id;
+                command.Parameters.Add("?name", MySqlDbType.VarChar).Value = i.name;
+                command.Parameters.Add("?year", MySqlDbType.VarChar).Value = i.year;
+                command.Parameters.Add("?available", MySqlDbType.Int32).Value = i.ava;
+                Connection.Open();
+                command.ExecuteNonQuery();
+                Connection.Close();
+
+            }
+            return 0;
         }
 
         public DataTable getTableInfoo(string query)

@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
 using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 
 namespace kyrsovaya_2k
@@ -20,6 +22,19 @@ namespace kyrsovaya_2k
     /// <summary>
     /// Interaction logic for work_win.xaml
     /// </summary>
+    /// 
+
+    //public class Foo
+    //{
+    //    public string surn { get; set; }
+    //    public string nam { get; set; }
+    //    public string patr { get; set; }
+    //    public string name { get; set; }
+    //    public string year { get; set; }
+    //    public int ava { get; set; }
+
+    //}
+
     public partial class work_win : Window
     {
         db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
@@ -36,31 +51,28 @@ namespace kyrsovaya_2k
             post.DataContext = a.getTableInfoo("SELECT id AS'#', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");
             authorsid.ItemsSource = a.getTableInfoo("SELECT id, surname FROM author_info").AsDataView();
         }
+        int lvl = 0;
         public work_win(List<db_work.user> Kurisu)
         {
             InitializeComponent();
             name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
-            borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды??' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
+            borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
             up_to_date();
 
-            switch (Kurisu[1].lvl)
+            lvl = Kurisu[1].lvl;
+            switch (lvl)
             {
                 case 1:
                     take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed; user_list.Visibility = Visibility.Collapsed; ychet.Visibility = Visibility.Collapsed; import_export.Visibility = Visibility.Collapsed; postavshik.Visibility = Visibility.Collapsed;//tabs
-
-                    borrow.Visibility = Visibility.Collapsed; borroww.Visibility = Visibility.Collapsed;//buttons
+                    borroww.Visibility = Visibility.Collapsed;//buttons                   
                     break;
                 case 2:
                     user_list.Visibility = Visibility.Collapsed; postavshik.Visibility = Visibility.Collapsed; //tabs
                     break;
-                default:
-                    //Console.WriteLine("Default case");
+                default:                   
                     break;
             }
-            if (Kurisu[1].lvl == 1)
-            {
-                
-            }
+
         }
 
         private void NumericOnly(object sender, TextCompositionEventArgs e)
@@ -78,18 +90,9 @@ namespace kyrsovaya_2k
         }
         private void search_auth(object sender, RoutedEventArgs e)
         {
-            string sel = sear.Text;
-            authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' OR born LIKE '%" + sel + "%'");//AS 'Номер'
+            authors.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info WHERE surname LIKE '%" + sear.Text + "%' OR author_info.name LIKE '%" + sear.Text + "%' OR patronymic LIKE '%" + sear.Text + "%' OR born LIKE '%" + sear.Text + "%'");
         }
-
-        private void borrow_bookss(object sender, RoutedEventArgs e)//чек на выбранную книгу
-        {
-            DataRowView row = books.SelectedItem as DataRowView;
-            take_books win = new take_books(row.Row.ItemArray[0].ToString());
-            win.Show();
-            up_to_date();
-        }
-
+    
         private void borrowww(object sender, RoutedEventArgs e)//чек на выбранную книгу
         {
             DataRowView row = boook.SelectedItem as DataRowView;
@@ -181,9 +184,34 @@ namespace kyrsovaya_2k
             books.DataContext = a.getTableInfoo("SELECT id AS '#', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE available > 0 AND autthor_id = " + row.Row.ItemArray[0].ToString());
             up_to_date();
         }
+
+        private void Row_DoubleClick_book(object sender, MouseButtonEventArgs e)
+        {
+            if(lvl != 1)
+            {
+                DataRowView row = books.SelectedItem as DataRowView;
+                take_books win = new take_books(row.Row.ItemArray[0].ToString());
+                win.Show();
+                up_to_date();
+            }
+        }
+
         private void imp_auth(object sender, RoutedEventArgs e)
         {
             if (a.import() == 0)
+            {
+                MessageBox.Show("ok");
+            }
+            else
+            {
+                MessageBox.Show("ты кек.");
+            }
+            up_to_date();
+        }
+
+        private void imp_book(object sender, RoutedEventArgs e)
+        {
+            if (a.import_books() == 0)
             {
                 MessageBox.Show("ok");
             }
@@ -269,6 +297,13 @@ namespace kyrsovaya_2k
         {
             Window1 reg = new Window1();
             reg.Show();
+        }
+
+        private void log_off(object sender, RoutedEventArgs e)
+        {
+            MainWindow reg = new MainWindow(); 
+            reg.Show();
+            Close();
         }
     }
 }
