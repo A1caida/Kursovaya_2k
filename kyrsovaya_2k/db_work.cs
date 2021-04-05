@@ -44,7 +44,7 @@ namespace kyrsovaya_2k
         {
             //owo.ToLower();
             for (int i = 0; i < owo.Length; i++)
-            {               
+            {
                 string uwu = owo.Substring(i, 1).ToLower();
                 owo = owo.Remove(i, 1);
                 owo = owo.Insert(i, uwu);
@@ -76,6 +76,9 @@ namespace kyrsovaya_2k
             if (result == true)
             {
                 filename = dlg.FileName;
+            }else
+            {
+                return -1;
             }
 
             var records = new List<Foo>();
@@ -103,7 +106,7 @@ namespace kyrsovaya_2k
             foreach (var i in records)
             {
                 MySqlCommand command = Connection.CreateCommand();
-                command.CommandText = "SELECT id FROM author_info WHERE surname LIKE '%"+ i.surn + "%' and author_info.name LIKE '%" + i.nam + "%' and patronymic LIKE '%" + i.patr + "%'";
+                command.CommandText = "SELECT id FROM author_info WHERE surname LIKE '%" + i.surn + "%' and author_info.name LIKE '%" + i.nam + "%' and patronymic LIKE '%" + i.patr + "%'";
 
                 int auth_id = 0;
                 Connection.Open();
@@ -181,7 +184,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             Connection.Close();
             return null;
@@ -204,7 +207,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -231,7 +234,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -257,7 +260,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -287,7 +290,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -314,7 +317,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -336,7 +339,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -358,7 +361,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -379,7 +382,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -409,7 +412,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -420,7 +423,7 @@ namespace kyrsovaya_2k
 
         public int export(string name)
         {
-            string path= "";
+            string path = "";
             var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
             if (dialog.ShowDialog() == true)
             {
@@ -429,7 +432,7 @@ namespace kyrsovaya_2k
             path = path + "/" + name + ".csv";
             path = path.Replace("\\", "/");
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '"+ path +"' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
+            command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '" + path + "' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
 
             try
             {
@@ -439,7 +442,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -461,7 +464,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -469,7 +472,7 @@ namespace kyrsovaya_2k
             }
             return -1;
         }
-        public int moneygobrr(int oper, string costFO ,string how_many, int cost)
+        public int moneygobrr(int oper, string costFO, string how_many, int cost)
         {
             MySqlCommand command = Connection.CreateCommand();
             command.CommandText = "INSERT INTO `biblioteka`.`logs_oper` (`oper_id`, `costFO`, `how_many`, `cost`, `date_when`) VALUES(?oper, ?costFO, ?how_many, ?cost, ?date_when)";
@@ -487,7 +490,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {

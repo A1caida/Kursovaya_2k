@@ -47,12 +47,12 @@ namespace kyrsovaya_2k
             int av = a.available(numberbook);
             if ((b == 0) && (av == 0))
             {
-                MessageBox.Show("ok");
+                MessageBox.Show("Книга выдана!", "Успешно", 0, MessageBoxImage.Asterisk);
                 Close();
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                MessageBox.Show("Книга не выдана!", "Успешно", 0, MessageBoxImage.Error);
             }
         }
     }

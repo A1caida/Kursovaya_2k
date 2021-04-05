@@ -34,15 +34,15 @@ namespace kyrsovaya_2k
             string nam = a.registr_letters(name.Text);
             string pat = a.registr_letters(priv.Text);
             string pho = phone.Text;
-            int Kurisu = a.reg_in_sys(login, password,sur,nam,pat, pho);
+            int Kurisu = a.reg_in_sys(login, password, sur, nam, pat, pho);
             if (Kurisu == 0)
             {
-                MessageBox.Show("ok");
+                MessageBox.Show(nam + " " + sur + " " + pat + " " + ",вы успешно зарегестрировались!", "Успешно", 0, MessageBoxImage.Asterisk);
                 Close();
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка регистрации!", "Ошибка", 0, MessageBoxImage.Error);
             }
         }
     }

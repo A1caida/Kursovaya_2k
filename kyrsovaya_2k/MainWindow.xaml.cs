@@ -18,7 +18,7 @@ namespace kyrsovaya_2k
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-   
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -38,14 +38,14 @@ namespace kyrsovaya_2k
             }
             else if (Kurisu[1].ban == "0")
             {
-                MessageBox.Show("Добро пожаловать, " + Kurisu[1].name + " " + Kurisu[1].patr + "!","Вы успешно вошли!");
-                work_win work= new work_win(Kurisu);
+                MessageBox.Show("Добро пожаловать, " + Kurisu[1].name + " " + Kurisu[1].patr + "!", "Вы успешно вошли!");
+                work_win work = new work_win(Kurisu);
                 work.Show();
                 Close();
             }
             else
             {
-                MessageBox.Show("Вам бан");
+                MessageBox.Show("Вы забанены!", "Ошибка", 0, MessageBoxImage.Error);
             }
         }
 
