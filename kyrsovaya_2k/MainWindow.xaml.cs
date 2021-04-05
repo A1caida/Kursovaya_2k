@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,7 +45,7 @@ namespace kyrsovaya_2k
             }
             else
             {
-                MessageBox.Show("Вам бан");
+                MessageBox.Show("Вы забанены!", "Ошибка", 0, MessageBoxImage.Error);
             }
         }
 
