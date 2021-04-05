@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -181,7 +181,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             Connection.Close();
             return null;
@@ -204,7 +204,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -231,7 +231,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -257,7 +257,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -287,7 +287,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -314,7 +314,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -336,7 +336,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -358,7 +358,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -379,7 +379,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -409,7 +409,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -439,7 +439,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -461,7 +461,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
@@ -487,7 +487,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {
