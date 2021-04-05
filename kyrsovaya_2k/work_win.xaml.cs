@@ -13,8 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
 using System.IO;
-using CsvHelper;
-using System.Globalization;
+
 
 
 namespace kyrsovaya_2k
@@ -23,17 +22,6 @@ namespace kyrsovaya_2k
     /// Interaction logic for work_win.xaml
     /// </summary>
     /// 
-
-    //public class Foo
-    //{
-    //    public string surn { get; set; }
-    //    public string nam { get; set; }
-    //    public string patr { get; set; }
-    //    public string name { get; set; }
-    //    public string year { get; set; }
-    //    public int ava { get; set; }
-
-    //}
 
     public partial class work_win : Window
     {
@@ -50,6 +38,7 @@ namespace kyrsovaya_2k
             ychet_data.DataContext = a.getTableInfoo("SELECT logs_oper.id AS '#', NAME AS 'Операция', costFO AS 'Цена за шт', how_many AS 'Кол-во', cost AS 'Цена', date_when AS 'Дата' FROM logs_oper JOIN operation ON oper_id = operation.id");
             post.DataContext = a.getTableInfoo("SELECT id AS'#', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");
             authorsid.ItemsSource = a.getTableInfoo("SELECT id, surname FROM author_info").AsDataView();
+            
         }
         int lvl = 0;
         public work_win(List<db_work.user> Kurisu)
@@ -57,6 +46,7 @@ namespace kyrsovaya_2k
             InitializeComponent();
             name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
             borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
+            recomendation.DataContext = a.getTableInfoo("SELECT id AS '#', name as 'Название' FROM books where ");// потом сделай!!!
             up_to_date();
 
             lvl = Kurisu[1].lvl;
@@ -111,12 +101,12 @@ namespace kyrsovaya_2k
 
             if (a.add_authors(sur, name, patr, year) == 0)
             {
-                MessageBox.Show("ok");
+                MessageBox.Show("Авторы успешно добавлены", "Успешно", 0, MessageBoxImage.Asterisk);
                 authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка добавления авторов", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -146,11 +136,11 @@ namespace kyrsovaya_2k
 
             if ((a.back(Convert.ToInt32(row.Row.ItemArray[0].ToString())) == 0) && (a.available(row.Row.ItemArray[1].ToString()) == 0))
             {
-                MessageBox.Show("ok");//апдейт датагрида
+                MessageBox.Show("Книга под номером " + row.Row.ItemArray[0] + "выдана успешно!", "Успешно", 0, MessageBoxImage.Asterisk);  //апдейт датагрида
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка выдачи книги", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -159,11 +149,11 @@ namespace kyrsovaya_2k
             DataRowView row = listofusers.SelectedItem as DataRowView;
             if (a.ban(row.Row.ItemArray[0].ToString()) == 0)
             {
-                MessageBox.Show("ok");
+                MessageBox.Show("Пользователь успешно заблокирован!", "Успешно", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка блокировки", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -200,11 +190,11 @@ namespace kyrsovaya_2k
         {
             if (a.import() == 0)
             {
-                MessageBox.Show("ok");
+                MessageBox.Show("Авторы успешно импортированы", "Успешно", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка импортирования авторов", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -213,11 +203,12 @@ namespace kyrsovaya_2k
         {
             if (a.import_books() == 0)
             {
-                MessageBox.Show("ok");
+                MessageBox.Show("Книги успешно импортированы", "Успешно", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                //  MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка экспортирования учебников", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -232,11 +223,12 @@ namespace kyrsovaya_2k
             {
                 if (a.export(exp_name.Text) == 0)
                 {
-                    MessageBox.Show("ok");
+                    MessageBox.Show("Авторы успешно экспортированы", "Успешно", 0, MessageBoxImage.Asterisk);
                 }
                 else
                 {
-                    MessageBox.Show("ты кек.");
+                   // MessageBox.Show("ты кек.");
+                    MessageBox.Show("Ошибка экспортирования авторов","Ошибка",0, MessageBoxImage.Error);
                 }
             }
             up_to_date();
@@ -247,11 +239,12 @@ namespace kyrsovaya_2k
 
             if (a.moneygobrr(Convert.ToInt32(oper_id.SelectedValue), money.Text, lists.Text, cost) == 0)
             {
-                MessageBox.Show("ok");
+                MessageBox.Show("Успешно", "Успешно", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                // MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка. Обратитесь к администратору", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -272,11 +265,11 @@ namespace kyrsovaya_2k
            
             if (a.add_books(Convert.ToInt32(authorsid.SelectedValue), bookname.Text, Convert.ToInt32(availbook.Text), yearbook.Text) == 0)
             {
-                MessageBox.Show("ok");
+                MessageBox.Show("Книга успешно добавлена", "Успешно", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка добавления книг", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
 
@@ -285,11 +278,11 @@ namespace kyrsovaya_2k
         {
             if (a.add_magazine(magazname.Text, datepicker.SelectedDate) == 0)
             {
-                MessageBox.Show("ok");
+                MessageBox.Show("Журнал успешно добавлен", "Успешно", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("ты кек.");
+                MessageBox.Show("Ошибка добавления журнала", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
