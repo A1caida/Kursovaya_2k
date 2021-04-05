@@ -632,6 +632,7 @@
                                     </Border>
                                 </ControlTemplate>
                             </Button.Template>
+
                         </Button>
                         <Button x:Name="borroww" 
                                 Click="borrowww" 
@@ -730,8 +731,7 @@
                                           VerticalAlignment="Center"/>
                                     </Border>
                                 </ControlTemplate>
-                            </Button.Template>
-
+                            </Button.Template>             
                         </Button>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">

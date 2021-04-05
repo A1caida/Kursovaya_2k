@@ -47,6 +47,7 @@ namespace kyrsovaya_2k
             name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
             borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
             recomendation.DataContext = a.getTableInfoo("SELECT id AS '#', name as 'Название' FROM books where autthor_id = (select autthor_id FROM books where id = (SELECT DISTINCT book_id FROM borrowed_books WHERE login_id = " + Kurisu[1].id+ " LIMIT 1)) ");//ПЕРЕДЕЛАЙ!!!!!
+
             up_to_date();
 
             lvl = Kurisu[1].lvl;
