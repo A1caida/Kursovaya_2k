@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
 using System.Data;
@@ -42,7 +39,6 @@ namespace kyrsovaya_2k
 
         public string registr_letters(string owo)
         {
-            //owo.ToLower();
             for (int i = 0; i < owo.Length; i++)
             {
                 string uwu = owo.Substring(i, 1).ToLower();
@@ -65,6 +61,16 @@ namespace kyrsovaya_2k
                 CharacterSet = "utf8"
             };
             Connection = new MySqlConnection(Connect.ConnectionString);
+        }
+
+        public DataTable getTableInfoo(string query)
+        {
+            MySqlCommand queryExecute = new MySqlCommand(query, Connection);
+            DataTable ass = new DataTable();
+            Connection.Open();
+            ass.Load(queryExecute.ExecuteReader());
+            Connection.Close();
+            return ass;
         }
 
         public int import_books()
@@ -129,15 +135,7 @@ namespace kyrsovaya_2k
             return 0;
         }
 
-        public DataTable getTableInfoo(string query)
-        {
-            MySqlCommand queryExecute = new MySqlCommand(query, Connection);
-            DataTable ass = new DataTable();
-            Connection.Open();
-            ass.Load(queryExecute.ExecuteReader());
-            Connection.Close();
-            return ass;
-        }
+       
 
         public List<user> log_is_sys(string log, string pass)
         {
@@ -402,7 +400,7 @@ namespace kyrsovaya_2k
             }
 
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "LOAD DATA INFILE @filename INTO TABLE biblioteka.author_info FIELDS TERMINATED BY ','";
+            command.CommandText = "LOAD DATA INFILE @filename INTO TABLE biblioteka.author_info FIELDS TERMINATED BY ';'";
             command.Parameters.AddWithValue("@filename", filename);
             try
             {
@@ -432,7 +430,7 @@ namespace kyrsovaya_2k
             path = path + "/" + name + ".csv";
             path = path.Replace("\\", "/");
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '" + path + "' FIELDS TERMINATED BY ',' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
+            command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '" + path + "' FIELDS TERMINATED BY ';' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
 
             try
             {

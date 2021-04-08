@@ -1,17 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Collections.Generic;
 
 namespace kyrsovaya_2k
 {
@@ -28,9 +16,7 @@ namespace kyrsovaya_2k
         db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
         private void login_sys(object sender, RoutedEventArgs e)
         {
-            string login = log.Text;
-            string password = pass.Password;
-            List<db_work.user> Kurisu = a.log_is_sys(login, password);
+            List<db_work.user> Kurisu = a.log_is_sys(log.Text, pass.Password);
 
             if (Kurisu.Count == 1)
             {
@@ -51,8 +37,8 @@ namespace kyrsovaya_2k
 
         private void reg_sys(object sender, RoutedEventArgs e)
         {
-            Window1 reg = new Window1();
-            reg.Show();
+            MessageBox.Show("Для регистрации обратитесь к работнику библиотеки.", "Регистрация", 0, MessageBoxImage.Asterisk);
+
         }
     }
 }

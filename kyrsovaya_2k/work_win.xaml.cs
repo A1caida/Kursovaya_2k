@@ -1,20 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Data;
-using System.IO;
-
-
+using System.Windows;
+using System.Windows.Input;
+using System.Collections.Generic;
 
 namespace kyrsovaya_2k
 {
@@ -102,12 +90,11 @@ namespace kyrsovaya_2k
 
             if (a.add_authors(sur, name, patr, year) == 0)
             {
-                MessageBox.Show("Авторы успешно добавлены", "Успешно", 0, MessageBoxImage.Asterisk);
-                authors.DataContext = a.getTableInfoo("SELECT id AS 'Номер', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");
+                MessageBox.Show("Авторы успешно добавлены", "Успешно!", 0, MessageBoxImage.Asterisk);             
             }
             else
             {
-                MessageBox.Show("Ошибка добавления авторов", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка добавления авторов", "Ошибка!", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -120,8 +107,7 @@ namespace kyrsovaya_2k
 
         private void search_users(object sender, RoutedEventArgs e)
         {
-            string sel = sear.Text;
-            users.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + sel + "%' OR author_info.name LIKE '%" + sel + "%' OR patronymic LIKE '%" + sel + "%' ");
+            users.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + sear.Text + "%' OR author_info.name LIKE '%" + sear.Text + "%' OR patronymic LIKE '%" + sear.Text + "%' ");
         }
 
         private void bookss_users(object sender, RoutedEventArgs e)
@@ -137,11 +123,11 @@ namespace kyrsovaya_2k
 
             if ((a.back(Convert.ToInt32(row.Row.ItemArray[0].ToString())) == 0) && (a.available(row.Row.ItemArray[1].ToString()) == 0))
             {
-                MessageBox.Show("Книга под номером " + row.Row.ItemArray[0] + "выдана успешно!", "Успешно", 0, MessageBoxImage.Asterisk);  //апдейт датагрида
+                MessageBox.Show("Книга под номером " + row.Row.ItemArray[0] + "выдана успешно!", "Успешно!", 0, MessageBoxImage.Asterisk);  //апдейт датагрида
             }
             else
             {
-                MessageBox.Show("Ошибка выдачи книги", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка выдачи книги", "Ошибка!", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -150,17 +136,17 @@ namespace kyrsovaya_2k
             DataRowView row = listofusers.SelectedItem as DataRowView;
             if (a.ban(row.Row.ItemArray[0].ToString()) == 0)
             {
-                MessageBox.Show("Пользователь успешно заблокирован!", "Успешно", 0, MessageBoxImage.Asterisk);
+                MessageBox.Show("Пользователь успешно заблокирован!", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("Ошибка блокировки", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка блокировки", "Ошибка!", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
         private void sear_us(object sender, RoutedEventArgs e)
-        {
-
+        { 
+            listofusers.DataContext = a.getTableInfoo("SELECT id AS '#', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + searchofusers.Text + "%' OR author_info.name LIKE '%" + searchofusers.Text + "%' OR patronymic LIKE '%" + searchofusers.Text + "%'");
         }
 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -191,11 +177,11 @@ namespace kyrsovaya_2k
         {
             if (a.import() == 0)
             {
-                MessageBox.Show("Авторы успешно импортированы", "Успешно", 0, MessageBoxImage.Asterisk);
+                MessageBox.Show("Авторы успешно импортированы", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("Ошибка импортирования авторов", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка импортирования авторов", "Ошибка!", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -204,12 +190,11 @@ namespace kyrsovaya_2k
         {
             if (a.import_books() == 0)
             {
-                MessageBox.Show("Книги успешно импортированы", "Успешно", 0, MessageBoxImage.Asterisk);
+                MessageBox.Show("Книги успешно импортированы", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                //  MessageBox.Show("ты кек.");
-                MessageBox.Show("Ошибка экспортирования учебников", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка экспортирования учебников!", "Ошибка", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -224,12 +209,11 @@ namespace kyrsovaya_2k
             {
                 if (a.export(exp_name.Text) == 0)
                 {
-                    MessageBox.Show("Авторы успешно экспортированы", "Успешно", 0, MessageBoxImage.Asterisk);
+                    MessageBox.Show("Авторы успешно экспортированы", "Успешно!", 0, MessageBoxImage.Asterisk);
                 }
                 else
                 {
-                    // MessageBox.Show("ты кек.");
-                    MessageBox.Show("Ошибка экспортирования авторов", "Ошибка", 0, MessageBoxImage.Error);
+                    MessageBox.Show("Ошибка экспортирования авторов", "Ошибка!", 0, MessageBoxImage.Error);
                 }
             }
             up_to_date();
@@ -240,12 +224,11 @@ namespace kyrsovaya_2k
 
             if (a.moneygobrr(Convert.ToInt32(oper_id.SelectedValue), money.Text, lists.Text, cost) == 0)
             {
-                MessageBox.Show("Успешно", "Успешно", 0, MessageBoxImage.Asterisk);
+                MessageBox.Show("Успешно", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                // MessageBox.Show("ты кек.");
-                MessageBox.Show("Ошибка. Обратитесь к администратору", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка. Обратитесь к администратору", "Ошибка!", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }
@@ -253,7 +236,6 @@ namespace kyrsovaya_2k
         private void search_magaz(object sender, RoutedEventArgs e)
         {
             magazin.DataContext = a.getTableInfoo("SELECT id AS'#', NAME AS 'Название', DATE AS 'Число' FROM magazine WHERE NAME LIKE '%" + sear_mag.Text + "%'");
-            //up_to_date();
         }
 
         private void post_sear(object sender, RoutedEventArgs e)
@@ -266,11 +248,11 @@ namespace kyrsovaya_2k
 
             if (a.add_books(Convert.ToInt32(authorsid.SelectedValue), bookname.Text, Convert.ToInt32(availbook.Text), yearbook.Text) == 0)
             {
-                MessageBox.Show("Книга успешно добавлена", "Успешно", 0, MessageBoxImage.Asterisk);
+                MessageBox.Show("Книга успешно добавлена", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("Ошибка добавления книг", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка добавления книг", "Ошибка!", 0, MessageBoxImage.Error);
             }
             up_to_date();
 
@@ -279,11 +261,11 @@ namespace kyrsovaya_2k
         {
             if (a.add_magazine(magazname.Text, datepicker.SelectedDate) == 0)
             {
-                MessageBox.Show("Журнал успешно добавлен", "Успешно", 0, MessageBoxImage.Asterisk);
+                MessageBox.Show("Журнал успешно добавлен", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("Ошибка добавления журнала", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка добавления журнала", "Ошибка!", 0, MessageBoxImage.Error);
             }
             up_to_date();
         }

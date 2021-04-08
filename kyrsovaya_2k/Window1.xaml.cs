@@ -1,16 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace kyrsovaya_2k
 {
@@ -34,8 +22,7 @@ namespace kyrsovaya_2k
             string nam = a.registr_letters(name.Text);
             string pat = a.registr_letters(priv.Text);
             string pho = phone.Text;
-            int Kurisu = a.reg_in_sys(login, password, sur, nam, pat, pho);
-            if (Kurisu == 0)
+            if (a.reg_in_sys(login, password, sur, nam, pat, pho) == 0)
             {
                 MessageBox.Show(nam + " " + sur + " " + pat + " " + ",вы успешно зарегестрировались!", "Успешно", 0, MessageBoxImage.Asterisk);
                 Close();
