@@ -9,7 +9,7 @@ namespace kyrsovaya_2k
     /// </summary>
     public partial class take_books : Window
     {
-        db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
+        db_work a = new db_work("95.104.192.212", "A1caida", "REvisE9023800", "A1caida");
 
         int numberbook = 0;
         public take_books(string book)

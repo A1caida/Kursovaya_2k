@@ -608,7 +608,7 @@
                     <Grid Grid.Row="1" Grid.Column="0">
                         <Button Click="book_yea" 
                                 Content="Поиск"  
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Center" 
                                 Foreground="White">
                             <Button.Style>
@@ -634,35 +634,6 @@
                             </Button.Template>
 
                         </Button>
-                        <Button x:Name="borroww" 
-                                Click="borrowww" 
-                                Content="Взять"  
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center" 
-                                Width="170" Height="33"   
-                                Foreground="White">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
-                                    <Setter Property="Background" Value="#5181b8"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#2e5a8c"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-                            <Button.Template>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border  Width="170" Height="33" 
-                                            CornerRadius="7"
-                                            Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" 
-                                          VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
                         <DataGrid x:Name="boook" 
@@ -674,7 +645,13 @@
                                   RowHeight="16" 
                                   IsReadOnly="True" 
                                   SelectionMode="Single" 
-                                  Style="{DynamicResource DataGridStyle1}"/>
+                                  Style="{DynamicResource DataGridStyle1}">
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick1_book"/>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                        </DataGrid>
                     </Grid>
 
                 </Grid>
@@ -1067,12 +1044,31 @@
                         <Button x:Name="tbook" Click="take_book" Content="Забрать"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0">
-                        <Button x:Name="s_users" Click="search_users" Content="Поиск пользователя"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
-                        <Button x:Name="s_books" Click="bookss_users" Content="Поиск по выделенному"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="170" Height="33" Margin="0,5,10,5"  />
+                        <Button x:Name="s_users" 
+                                Click="search_users" 
+                                Content="Поиск пользователя"  
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" 
+                                Width="170" Height="33" />
 
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
-                        <DataGrid x:Name="users" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                        <DataGrid x:Name="users" 
+                                  ItemsSource="{Binding}" 
+                                  AutoGenerateColumns="True" 
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" 
+                                  Height="200" Width="378" 
+                                  RowHeight="16" 
+                                  IsReadOnly="True" 
+                                  SelectionMode="Single" 
+                                  Style="{DynamicResource DataGridStyle1}">
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="{x:Type DataGridRow}">
+                                    <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick_book_users"/>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                        </DataGrid>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
                         <DataGrid x:Name="user_books" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single"/>
@@ -1154,6 +1150,9 @@
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="1">
                         <Button Click="imp_book" Content="импорт книг"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="1">
+                        <Button Click="exp_book" Content="экспорт книг"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
                     </Grid>
                 </Grid>
             </TabItem>

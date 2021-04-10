@@ -1,12 +1,12 @@
+using CsvHelper;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using MySql.Data.MySqlClient;
-using System.Data.Common;
 using System.Data;
-using System.Windows;
-using CsvHelper;
+using System.Data.Common;
 using System.Globalization;
 using System.IO;
+using System.Windows;
 
 namespace kyrsovaya_2k
 {
@@ -82,7 +82,8 @@ namespace kyrsovaya_2k
             if (result == true)
             {
                 filename = dlg.FileName;
-            }else
+            }
+            else
             {
                 return -1;
             }
@@ -121,21 +122,39 @@ namespace kyrsovaya_2k
                         auth_id = reader.GetInt32(0);
 
                 Connection.Close();
+
+                int book_id = 0;
                 command = Connection.CreateCommand();
-                command.CommandText = "INSERT INTO books(autthor_id, name, year,available) VALUES(?autthor_id, ?name, ?year, ?available)";
-                command.Parameters.Add("?autthor_id", MySqlDbType.Int32).Value = auth_id;
-                command.Parameters.Add("?name", MySqlDbType.VarChar).Value = i.name;
-                command.Parameters.Add("?year", MySqlDbType.VarChar).Value = i.year;
-                command.Parameters.Add("?available", MySqlDbType.Int32).Value = i.ava;
+                command.CommandText = "SELECT id FROM books where books.name ="+ i.name;
                 Connection.Open();
-                command.ExecuteNonQuery();
+                using (DbDataReader reader = command.ExecuteReader())
+                    while (reader.Read())
+                        book_id = reader.GetInt32(0);
+
                 Connection.Close();
 
+                command = Connection.CreateCommand();
+                switch (book_id)
+                {
+                    case 0:
+                        command.CommandText = "INSERT INTO books(autthor_id, name, year,available) VALUES(?autthor_id, ?name, ?year, ?available)";
+                        command.Parameters.Add("?autthor_id", MySqlDbType.Int32).Value = auth_id;
+                        command.Parameters.Add("?name", MySqlDbType.VarChar).Value = i.name;
+                        command.Parameters.Add("?year", MySqlDbType.VarChar).Value = i.year;
+                        command.Parameters.Add("?available", MySqlDbType.Int32).Value = i.ava;
+                        Connection.Open();
+                        command.ExecuteNonQuery();
+                        Connection.Close();
+                        break;
+                    default:
+                        command.CommandText = "UPDATE `books` SET `available`= available+ "+ i.ava +" WHERE `id`="+ book_id + ";";
+                        break;
+                }  
             }
             return 0;
         }
 
-       
+
 
         public List<user> log_is_sys(string log, string pass)
         {
@@ -327,7 +346,7 @@ namespace kyrsovaya_2k
         public int available(int book)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "UPDATE `biblioteka`.`books` SET `available`='0' WHERE  `id`=" + book;
+            command.CommandText = "UPDATE `books` SET `available`='0' WHERE  `id`=" + book;
 
             try
             {
@@ -348,7 +367,7 @@ namespace kyrsovaya_2k
         public int available(string book)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "UPDATE `biblioteka`.`books` SET `available`='1' WHERE `name`='" + book + "'";
+            command.CommandText = "UPDATE `books` SET `available`='1' WHERE `name`='" + book + "'";
 
 
             try
@@ -370,7 +389,7 @@ namespace kyrsovaya_2k
         public int back(int id)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "UPDATE `biblioteka`.`borrowed_books` SET `date_back`= ?date_back WHERE `id`=" + id;
+            command.CommandText = "UPDATE `borrowed_books` SET `date_back`= ?date_back WHERE `id`=" + id;
             command.Parameters.Add("?date_back", MySqlDbType.Timestamp).Value = DateTime.Now;
             try
             {
@@ -400,7 +419,7 @@ namespace kyrsovaya_2k
             }
 
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "LOAD DATA INFILE @filename INTO TABLE biblioteka.author_info FIELDS TERMINATED BY ';'";
+            command.CommandText = "LOAD DATA INFILE @filename INTO TABLE author_info FIELDS TERMINATED BY ';'";
             command.Parameters.AddWithValue("@filename", filename);
             try
             {
@@ -419,7 +438,7 @@ namespace kyrsovaya_2k
             return -1;
         }
 
-        public int export(string name)
+        public int export(string name,int a)
         {
             string path = "";
             var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
@@ -430,7 +449,15 @@ namespace kyrsovaya_2k
             path = path + "/" + name + ".csv";
             path = path.Replace("\\", "/");
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "SELECT * FROM biblioteka.author_info INTO OUTFILE '" + path + "' FIELDS TERMINATED BY ';' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
+            if(a ==0)
+            {
+                command.CommandText = "SELECT * FROM author_info INTO OUTFILE '" + path + "' FIELDS TERMINATED BY ';' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
+            }
+            else
+            {
+                command.CommandText = "SELECT * FROM full_book_info INTO OUTFILE '" + path + "' FIELDS TERMINATED BY ';' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
+            }
+           
 
             try
             {
@@ -452,7 +479,7 @@ namespace kyrsovaya_2k
         public int ban(string id)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "UPDATE `biblioteka`.`user_info` SET `ban`= 1 WHERE `id`=" + id;
+            command.CommandText = "UPDATE `user_info` SET `ban`= 1 WHERE `id`=" + id;
 
             try
             {
@@ -473,7 +500,7 @@ namespace kyrsovaya_2k
         public int moneygobrr(int oper, string costFO, string how_many, int cost)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "INSERT INTO `biblioteka`.`logs_oper` (`oper_id`, `costFO`, `how_many`, `cost`, `date_when`) VALUES(?oper, ?costFO, ?how_many, ?cost, ?date_when)";
+            command.CommandText = "INSERT INTO `logs_oper` (`oper_id`, `costFO`, `how_many`, `cost`, `date_when`) VALUES(?oper, ?costFO, ?how_many, ?cost, ?date_when)";
             command.Parameters.Add("?oper", MySqlDbType.Int32).Value = oper;
             command.Parameters.Add("?costFO", MySqlDbType.Int32).Value = Convert.ToInt32(costFO);
             command.Parameters.Add("?how_many", MySqlDbType.Int32).Value = Convert.ToInt32(how_many);

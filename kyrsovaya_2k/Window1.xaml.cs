@@ -12,7 +12,7 @@ namespace kyrsovaya_2k
             InitializeComponent();
         }
 
-        db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
+        db_work a = new db_work("95.104.192.212", "A1caida", "REvisE9023800", "A1caida");
 
         private void register_sys(object sender, RoutedEventArgs e)
         {

@@ -1,8 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 using System.Windows.Input;
-using System.Collections.Generic;
 
 namespace kyrsovaya_2k
 {
@@ -13,7 +13,7 @@ namespace kyrsovaya_2k
 
     public partial class work_win : Window
     {
-        db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
+        db_work a = new db_work("95.104.192.212", "A1caida", "REvisE9023800", "A1caida");
 
         private void up_to_date()
         {
@@ -23,7 +23,7 @@ namespace kyrsovaya_2k
             listofusers.DataContext = a.getTableInfoo("SELECT id AS '#', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info");
             oper_id.ItemsSource = a.getTableInfoo("SELECT id, name FROM operation").AsDataView();
             magazin.DataContext = a.getTableInfoo("SELECT id AS'#', NAME AS 'Название', DATE AS 'Число' FROM magazine");
-            ychet_data.DataContext = a.getTableInfoo("SELECT logs_oper.id AS '#', NAME AS 'Операция', costFO AS 'Цена за шт', how_many AS 'Кол-во', cost AS 'Цена', date_when AS 'Дата' FROM logs_oper JOIN operation ON oper_id = operation.id");
+            ychet_data.DataContext = a.getTableInfoo("SELECT * FROM full_logs_oper");
             post.DataContext = a.getTableInfoo("SELECT id AS'#', comp AS 'Название', phone AS 'Номер телефона' FROM postavshik");
             authorsid.ItemsSource = a.getTableInfoo("SELECT id, surname FROM author_info").AsDataView();
 
@@ -34,7 +34,7 @@ namespace kyrsovaya_2k
             InitializeComponent();
             name.Text = " " + Kurisu[1].surname + " " + Kurisu[1].name + " " + Kurisu[1].patr;
             borrowed.DataContext = a.getTableInfoo("SELECT name AS 'Название', date_end AS 'Конец аренды' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + Kurisu[1].id);
-            recomendation.DataContext = a.getTableInfoo("SELECT id AS '#', name as 'Название' FROM books where autthor_id = (select autthor_id FROM books where id = (SELECT DISTINCT book_id FROM borrowed_books WHERE login_id = " + Kurisu[1].id+ " LIMIT 1)) ");//ПЕРЕДЕЛАЙ!!!!!
+            recomendation.DataContext = a.getTableInfoo("SELECT id AS '#', name as 'Название' FROM books where autthor_id = (select autthor_id FROM books where id = (SELECT DISTINCT book_id FROM borrowed_books WHERE login_id = " + Kurisu[1].id + " LIMIT 1)) ");//ПЕРЕДЕЛАЙ!!!!!
 
             up_to_date();
 
@@ -42,8 +42,7 @@ namespace kyrsovaya_2k
             switch (lvl)
             {
                 case 1:
-                    take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed; user_list.Visibility = Visibility.Collapsed; ychet.Visibility = Visibility.Collapsed; import_export.Visibility = Visibility.Collapsed; postavshik.Visibility = Visibility.Collapsed;//tabs
-                    borroww.Visibility = Visibility.Collapsed;//buttons                   
+                    take.Visibility = Visibility.Collapsed; add.Visibility = Visibility.Collapsed; user_list.Visibility = Visibility.Collapsed; ychet.Visibility = Visibility.Collapsed; import_export.Visibility = Visibility.Collapsed; postavshik.Visibility = Visibility.Collapsed;//tabs                  
                     break;
                 case 2:
                     user_list.Visibility = Visibility.Collapsed; postavshik.Visibility = Visibility.Collapsed; //tabs
@@ -72,13 +71,13 @@ namespace kyrsovaya_2k
             authors.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info WHERE surname LIKE '%" + sear.Text + "%' OR author_info.name LIKE '%" + sear.Text + "%' OR patronymic LIKE '%" + sear.Text + "%' OR born LIKE '%" + sear.Text + "%'");
         }
 
-        private void borrowww(object sender, RoutedEventArgs e)//чек на выбранную книгу
-        {
-            DataRowView row = boook.SelectedItem as DataRowView;
-            take_books win = new take_books(row.Row.ItemArray[0].ToString());
-            win.Show();
-            up_to_date();
-        }
+        //private void borrowww(object sender, RoutedEventArgs e)//чек на выбранную книгу
+        //{
+        //    DataRowView row = boook.SelectedItem as DataRowView;
+        //    take_books win = new take_books(row.Row.ItemArray[0].ToString());
+        //    win.Show();
+        //    up_to_date();
+        //}
 
 
         private void add_authh(object sender, RoutedEventArgs e)
@@ -90,7 +89,7 @@ namespace kyrsovaya_2k
 
             if (a.add_authors(sur, name, patr, year) == 0)
             {
-                MessageBox.Show("Авторы успешно добавлены", "Успешно!", 0, MessageBoxImage.Asterisk);             
+                MessageBox.Show("Авторы успешно добавлены", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
@@ -110,11 +109,14 @@ namespace kyrsovaya_2k
             users.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + sear.Text + "%' OR author_info.name LIKE '%" + sear.Text + "%' OR patronymic LIKE '%" + sear.Text + "%' ");
         }
 
-        private void bookss_users(object sender, RoutedEventArgs e)
+        private void Row_DoubleClick_book_users(object sender, MouseButtonEventArgs e)
         {
-            DataRowView row = users.SelectedItem as DataRowView;
-            user_books.DataContext = a.getTableInfoo("SELECT borrowed_books.id AS '#', name AS 'Название' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + row.Row.ItemArray[0].ToString());
-            up_to_date();
+            if (lvl != 1)
+            {
+                DataRowView row = users.SelectedItem as DataRowView;
+                user_books.DataContext = a.getTableInfoo("SELECT borrowed_books.id AS '#', name AS 'Название' FROM borrowed_books JOIN books on book_id = books.id WHERE date_back IS NULL and login_id = " + row.Row.ItemArray[0].ToString());
+                up_to_date();
+            }
         }
 
         private void take_book(object sender, RoutedEventArgs e)
@@ -145,7 +147,7 @@ namespace kyrsovaya_2k
             up_to_date();
         }
         private void sear_us(object sender, RoutedEventArgs e)
-        { 
+        {
             listofusers.DataContext = a.getTableInfoo("SELECT id AS '#', login AS 'Логин', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество' FROM user_info WHERE surname LIKE '%" + searchofusers.Text + "%' OR author_info.name LIKE '%" + searchofusers.Text + "%' OR patronymic LIKE '%" + searchofusers.Text + "%'");
         }
 
@@ -167,6 +169,17 @@ namespace kyrsovaya_2k
             if (lvl != 1)
             {
                 DataRowView row = books.SelectedItem as DataRowView;
+                take_books win = new take_books(row.Row.ItemArray[0].ToString());
+                win.Show();
+                up_to_date();
+            }
+        }
+
+        private void Row_DoubleClick1_book(object sender, MouseButtonEventArgs e)
+        {
+            if (lvl != 1)
+            {
+                DataRowView row = boook.SelectedItem as DataRowView;
                 take_books win = new take_books(row.Row.ItemArray[0].ToString());
                 win.Show();
                 up_to_date();
@@ -207,13 +220,33 @@ namespace kyrsovaya_2k
             }
             else
             {
-                if (a.export(exp_name.Text) == 0)
+                if (a.export(exp_name.Text,0) == 0)
                 {
                     MessageBox.Show("Авторы успешно экспортированы", "Успешно!", 0, MessageBoxImage.Asterisk);
                 }
                 else
                 {
                     MessageBox.Show("Ошибка экспортирования авторов", "Ошибка!", 0, MessageBoxImage.Error);
+                }
+            }
+            up_to_date();
+        }
+
+        private void exp_book(object sender, RoutedEventArgs e)
+        {
+            if (exp_name.Text == "")
+            {
+                MessageBox.Show("Название файла не может быть пустым!", "Ошибка!", 0, MessageBoxImage.Error);
+            }
+            else
+            {
+                if (a.export(exp_name.Text, 1) == 0)
+                {
+                    MessageBox.Show("Книга успешно экспортированы", "Успешно!", 0, MessageBoxImage.Asterisk);
+                }
+                else
+                {
+                    MessageBox.Show("Ошибка экспортирования книг. Попробуйте снова.", "Ошибка!", 0, MessageBoxImage.Error);
                 }
             }
             up_to_date();

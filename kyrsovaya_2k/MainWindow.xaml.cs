@@ -1,5 +1,8 @@
-using System.Windows;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Windows;
+using CsvHelper;
 
 namespace kyrsovaya_2k
 {
@@ -9,11 +12,13 @@ namespace kyrsovaya_2k
 
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
         }
-        db_work a = new db_work("127.0.0.1", "root", "", "biblioteka");
+
+        db_work a = new db_work("95.104.192.212", "A1caida", "REvisE9023800", "A1caida");
         private void login_sys(object sender, RoutedEventArgs e)
         {
             List<db_work.user> Kurisu = a.log_is_sys(log.Text, pass.Password);
