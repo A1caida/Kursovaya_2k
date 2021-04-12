@@ -120,6 +120,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="edit_a.xaml.cs">
+      <DependentUpon>edit_a.xaml</DependentUpon>
+    </Compile>
     <Compile Include="take_books.xaml.cs">
       <DependentUpon>take_books.xaml</DependentUpon>
     </Compile>
@@ -129,6 +132,10 @@
     <Compile Include="work_win.xaml.cs">
       <DependentUpon>work_win.xaml</DependentUpon>
     </Compile>
+    <Page Include="edit_a.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

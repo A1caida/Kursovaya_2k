@@ -656,7 +656,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Список газет" x:Name="search_magazin">
+            <TabItem Header="Газеты" x:Name="search_magazin">
                 <!--////////////////////////////////////////////////-->
                 <Grid>
                     <Grid.RowDefinitions>
@@ -726,7 +726,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Добавить" x:Name="add">
+            <TabItem Header="Добавить/Изменить" x:Name="add">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
@@ -745,7 +745,102 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-
+                    <Grid Grid.Row="1" Grid.Column="0">
+                        <TextBlock Text="Изменить" 
+                                   FontFamily="fonts/#Noto Sans"
+                                   FontSize="30"
+                                   FontWeight="Medium"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        
+                    </Grid>
+                    <Grid Grid.Row="4" Grid.Column="0">
+                        <Button Click="edit_u"
+                                Content="Читателя"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="190" Height="20" 
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Button Click="edit_a"
+                                Content="Автора"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="190" Height="20" 
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="3" Grid.Column="0">
+                        <Button Click="edit_b"
+                                Content="Кингу"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="White" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="190" Height="20" 
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
                     <Grid Grid.Row="1" Grid.Column="1">
                         <TextBlock Text="Авторы" 
                                    FontFamily="fonts/#Noto Sans"
@@ -794,6 +889,26 @@
                                  PreviewTextInput="LettersOnly" 
                                  FontFamily="fonts/#Noto Sans"
                                  Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Имя" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="190"
+                                   Height="20"                  >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=authname}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                     <Grid Grid.Row="4" Grid.Column="1">
                         <TextBox x:Name="authpatr" 
@@ -804,6 +919,26 @@
                                  PreviewTextInput="LettersOnly"
                                  FontFamily="fonts/#Noto Sans"
                                  Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Отчество" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="190"
+                                   Height="20"                  >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=authpatr}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                     <Grid Grid.Row="5" Grid.Column="1">
                         <TextBox x:Name="authyear" 
@@ -814,6 +949,26 @@
                                  PreviewTextInput="NumericOnly"
                                  FontFamily="fonts/#Noto Sans"
                                  Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Год" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="190"
+                                   Height="20"                  >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=authyear}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                     <Grid Grid.Row="6" Grid.Column="1">
                         <Button Click="add_authh"
@@ -873,6 +1028,26 @@
                                  PreviewTextInput="LettersOnly"
                                  FontFamily="fonts/#Noto Sans"
                                  Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Название книги" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="190"
+                                   Height="20"                  >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=bookname}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                     <Grid Grid.Row="4" Grid.Column="2">
                         <TextBox x:Name="yearbook" 
@@ -883,6 +1058,26 @@
                                  PreviewTextInput="NumericOnly"
                                  FontFamily="fonts/#Noto Sans"
                                  Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Год" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="190"
+                                   Height="20"                  >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=yearbook}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                     <Grid Grid.Row="5" Grid.Column="2">
                         <TextBox x:Name="availbook" 
@@ -893,6 +1088,26 @@
                                  PreviewTextInput="NumericOnly"
                                  FontFamily="fonts/#Noto Sans"
                                  Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Количество" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="190"
+                                   Height="20"                  >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=availbook}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                     <Grid Grid.Row="6" Grid.Column="2">
                         <Button Click="add_book"
@@ -939,6 +1154,26 @@
                                  VerticalAlignment="Center"   
                                  FontFamily="fonts/#Noto Sans"
                                  Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Название" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="190"
+                                   Height="20"                  >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=magazname}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="3">
                         <DatePicker Name="datepicker" 
@@ -1038,18 +1273,45 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Grid.Column="0">
-                        <TextBox x:Name="searсhuser" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" PreviewTextInput="LettersOnly"/>
+                        <TextBox x:Name="searсhuser" 
+                                 Width="269" Height="20" 
+                                 HorizontalAlignment="Center"  
+                                 VerticalAlignment="Center" 
+                                 PreviewTextInput="LettersOnly"
+                                 Style="{DynamicResource stylefortext}"/>
                     </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1">
+                    <!--<Grid Grid.Row="1" Grid.Column="1">
                         <Button x:Name="tbook" Click="take_book" Content="Забрать"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
-                    </Grid>
+                    </Grid>-->
                     <Grid Grid.Row="1" Grid.Column="0">
                         <Button x:Name="s_users" 
                                 Click="search_users" 
                                 Content="Поиск пользователя"  
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center" 
-                                Width="170" Height="33" />
+                                Foreground="White" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="170" Height="33"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
 
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
@@ -1071,11 +1333,26 @@
                         </DataGrid>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
-                        <DataGrid x:Name="user_books" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single"/>
+                        <DataGrid x:Name="user_books" 
+                                  ItemsSource="{Binding}" 
+                                  AutoGenerateColumns="True" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center" 
+                                  Height="200" Width="378" 
+                                  RowHeight="16" 
+                                  IsReadOnly="True" 
+                                  SelectionMode="Single"
+                                  Style="{DynamicResource DataGridStyle1}">
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick_take_book"/>
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
+                        </DataGrid>
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Пользователи" x:Name="user_list">
+            <TabItem Header="Формуляры" x:Name="user_list">
                 <!--////////////////////////////////////////////////-->
                 <Grid>
                     <Grid.RowDefinitions>
@@ -1145,14 +1422,12 @@
                     <Grid Grid.Row="2" Grid.Column="1">
                         <TextBox x:Name="exp_name"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" />
                     </Grid>
-                    <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
-                        <DataGrid x:Name="import_data" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                  
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Button Click="imp_book" Content="Импорт книг"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="1">
-                        <Button Click="imp_book" Content="импорт книг"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
-                    </Grid>
-                    <Grid Grid.Row="4" Grid.Column="1">
-                        <Button Click="exp_book" Content="экспорт книг"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
+                        <Button Click="exp_book" Content="Экспорт книг"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
                     </Grid>
                 </Grid>
             </TabItem>

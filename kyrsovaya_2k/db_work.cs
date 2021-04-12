@@ -20,6 +20,16 @@ namespace kyrsovaya_2k
         public int ava { get; set; }
 
     }
+
+    public class Aut
+    {
+        public string surn { get; set; }
+        public string name { get; set; }
+        public string patr { get; set; }    
+        public string born { get; set; }
+
+    }
+
     public class db_work
     {
         public struct user
@@ -34,6 +44,25 @@ namespace kyrsovaya_2k
             public string ban;
         }
 
+        public struct author
+        {
+            public int id;
+            public string surname;
+            public string name;
+            public string patronymic;
+            public string born;
+        }
+
+        public struct books
+        {
+            public int id;
+            public string surname;
+            public string name;
+            public string patronymic;
+            public string book;
+            public string year;
+            public int ava;
+        }
 
         MySqlConnection Connection;
 
@@ -364,6 +393,68 @@ namespace kyrsovaya_2k
             }
             return -1;
         }
+        public int edit(int id, string surname, string name, string patr, string year, string phone, int ava, int auth_id, int ch )
+        {
+            MySqlCommand command = Connection.CreateCommand();
+            switch (ch)
+            {
+                case 0:
+                   
+                    command.CommandText = "UPDATE `author_info` SET `surname`='"+ surname + "',`name`= '"+ name + "', `patronymic`= '"+ patr + "', `born` = '"+ year + "'  WHERE `id` =" + id;
+                    try
+                    {
+                        Connection.Open();
+                        command.ExecuteNonQuery();
+                        return 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        Connection.Close();
+                    }
+                    return -1;
+                case 1:
+
+                    command.CommandText = "UPDATE `books` SET `autthor_id`=" + auth_id + ",`name`= '" + name + "', `year` = '" + year + "', `available` = "+ ava + "  WHERE `id` =" + id;
+                    try
+                    {
+                        Connection.Open();
+                        command.ExecuteNonQuery();
+                        return 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        Connection.Close();
+                    }
+                    return -1;
+
+                default:
+                    command.CommandText = "UPDATE `user_info` SET `password` = '" + year + "',`surname`='" + surname + "',`name`= '" + name + "', `patronymic`= '" + patr + "', `phone` = " + phone + ", `ban` = "+ava+"  WHERE `id` =" + id;
+                    try
+                    {
+                        Connection.Open();
+                        command.ExecuteNonQuery();
+                        return 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
+                    }
+                    finally
+                    {
+                        Connection.Close();
+                    }
+                    return -1;
+
+            }
+        }
         public int available(string book)
         {
             MySqlCommand command = Connection.CreateCommand();
@@ -417,14 +508,42 @@ namespace kyrsovaya_2k
             {
                 filename = dlg.FileName;
             }
+            else
+            {
+                return -1;
+            }
+            var records = new List<Aut>();
+            using (var reader = new StreamReader(filename))
+            using (var csv = new CsvReader(reader, CultureInfo.CurrentCulture))
+            {
+                //csv.Configuration.Delimiter = ";";
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var record = new Aut
+                    {
+                        surn = csv.GetField("Фамилия"),
+                        name = csv.GetField("Имя"),
+                        patr = csv.GetField("Отчество"),
+                        born = csv.GetField("Год"),
+                    };
+                    records.Add(record);
+                }
+            }
+
 
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "LOAD DATA INFILE @filename INTO TABLE author_info FIELDS TERMINATED BY ';'";
-            command.Parameters.AddWithValue("@filename", filename);
+           
             try
             {
-                Connection.Open();
-                command.ExecuteNonQuery();
+                foreach (var Kurisu in records)
+                {
+                    Connection.Open();
+                    command.CommandText = "INSERT INTO `author_info` (`surname`, `name`, `patronymic`, `born`) VALUES ('"+ Kurisu.surn+ "', '"+ Kurisu.name+ "', '"+Kurisu.patr+"', '"+Kurisu.born+"')";
+                    command.ExecuteNonQuery();
+                    Connection.Close();
+                }
                 return 0;
             }
             catch (Exception ex)
@@ -440,40 +559,117 @@ namespace kyrsovaya_2k
 
         public int export(string name,int a)
         {
+            string kostil = "";
             string path = "";
             var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
             if (dialog.ShowDialog() == true)
             {
                 path = dialog.SelectedPath;
             }
-            path = path + "/" + name + ".csv";
-            path = path.Replace("\\", "/");
+            path = path + "\\" + name + ".csv";
             MySqlCommand command = Connection.CreateCommand();
             if(a ==0)
             {
-                command.CommandText = "SELECT * FROM author_info INTO OUTFILE '" + path + "' FIELDS TERMINATED BY ';' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
+                try
+                {
+                    command.CommandText = "SELECT * FROM author_info";
+                    List<author> auth = new List<author>();
+                    try
+                    {
+                        Connection.Open();
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                author authh = new author
+                                {
+                                    id = reader.GetInt32(0),
+                                    surname = reader.GetString(1),
+                                    name = reader.GetString(2),
+                                    patronymic = reader.GetString(3),
+                                    born = reader.GetString(4),
+                                };
+                                auth.Add(authh);
+                            }
+                        }
+                        Connection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
+                    }
+                    Connection.Close();
+
+
+                    foreach (var Kurisu in auth)
+                    {
+                        kostil += Convert.ToString(Kurisu.id) + ";" + Kurisu.surname + ";" + Kurisu.name + ";" + Kurisu.patronymic + ";" + Kurisu.born + "\n";
+                    }
+                    File.WriteAllText(path, kostil);
+
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    Connection.Close();
+                }
+                return -1;
             }
             else
             {
-                command.CommandText = "SELECT * FROM full_book_info INTO OUTFILE '" + path + "' FIELDS TERMINATED BY ';' ENCLOSED BY '' LINES TERMINATED BY '\n'; ";
-            }
-           
+                try
+                {
+                    command.CommandText = "SELECT * FROM full_book_info";
+                    List<books> auth = new List<books>();
+                    try
+                    {
+                        Connection.Open();
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                books authh = new books
+                                {
+                                    id = reader.GetInt32(0),
+                                    surname = reader.GetString(1),
+                                    name = reader.GetString(2),
+                                    patronymic = reader.GetString(3),
+                                    book = reader.GetString(4),
+                                    year = reader.GetString(5),
+                                    ava = reader.GetInt32(6),
+                                };
+                                auth.Add(authh);
+                            }
+                        }
+                        Connection.Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
+                    }
+                    Connection.Close();
 
-            try
-            {
-                Connection.Open();
-                command.ExecuteNonQuery();
-                return 0;
+
+                    foreach (var Kurisu in auth)
+                    {
+                        kostil += Convert.ToString(Kurisu.id) + ";" + Kurisu.surname + ";" + Kurisu.name + ";" + Kurisu.patronymic + ";" + Kurisu.book + ";" + Kurisu.year + ";" + Convert.ToString(Kurisu.ava) + "\n";
+                    }
+                    File.WriteAllText(path, kostil);
+
+                    return 0;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
+                    return -1;
+                }
+                
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
-            }
-            finally
-            {
-                Connection.Close();
-            }
-            return -1;
+
         }
 
         public int ban(string id)

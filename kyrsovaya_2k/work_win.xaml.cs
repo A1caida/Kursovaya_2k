@@ -101,7 +101,7 @@ namespace kyrsovaya_2k
         private void book_yea(object sender, RoutedEventArgs e)
         {
             boook.DataContext = a.getTableInfoo("SELECT id AS '#', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books WHERE YEAR ='" + yea.Text + "'");
-            up_to_date();
+
         }
 
         private void search_users(object sender, RoutedEventArgs e)
@@ -119,6 +119,20 @@ namespace kyrsovaya_2k
             }
         }
 
+        private void Row_DoubleClick_take_book(object sender, MouseButtonEventArgs e)
+        {
+            DataRowView row = user_books.SelectedItem as DataRowView;
+
+            if ((a.back(Convert.ToInt32(row.Row.ItemArray[0].ToString())) == 0) && (a.available(row.Row.ItemArray[1].ToString()) == 0))
+            {
+                MessageBox.Show("Книга под номером " + row.Row.ItemArray[0] + " забрана успешно!", "Успешно!", 0, MessageBoxImage.Asterisk);  //апдейт датагрида
+            }
+            else
+            {
+                MessageBox.Show("Ошибка выдачи книги", "Ошибка!", 0, MessageBoxImage.Error);
+            }
+            up_to_date();
+        }
         private void take_book(object sender, RoutedEventArgs e)
         {
             DataRowView row = user_books.SelectedItem as DataRowView;
@@ -314,5 +328,21 @@ namespace kyrsovaya_2k
             reg.Show();
             Close();
         }
+        private void edit_a(object sender, RoutedEventArgs e)
+        {
+            edit_a Kurisu = new edit_a();
+            Kurisu.Show();
+        }
+
+        private void edit_b(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void edit_u(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }
