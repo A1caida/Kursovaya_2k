@@ -45,5 +45,7 @@ namespace kyrsovaya_2k
             MessageBox.Show("Для регистрации обратитесь к работнику библиотеки.", "Регистрация", 0, MessageBoxImage.Asterisk);
 
         }
+
+
     }
 }

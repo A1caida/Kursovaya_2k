@@ -362,7 +362,7 @@
                             </DataGrid.ItemContainerStyle>
                         </DataGrid>
                     </Grid>
-                   
+
                     <Grid Grid.Row="2" Grid.Column="2" >
                         <TextBox x:Name="book_name" 
                                  Width="190" 
@@ -701,7 +701,7 @@
                         </TextBlock>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1">
-                       
+
                     </Grid>
                     <Grid Grid.Row="4" Grid.Column="2" >
                         <TextBox x:Name="ban" 

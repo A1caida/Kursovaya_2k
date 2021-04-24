@@ -234,7 +234,7 @@ namespace kyrsovaya_2k
             }
             else
             {
-                if (a.export(exp_name.Text,0) == 0)
+                if (a.export(exp_name.Text, 0) == 0)
                 {
                     MessageBox.Show("Авторы успешно экспортированы", "Успешно!", 0, MessageBoxImage.Asterisk);
                 }
@@ -308,7 +308,7 @@ namespace kyrsovaya_2k
         {
             if (a.add_magazine(magazname.Text, datepicker.SelectedDate) == 0)
             {
-                MessageBox.Show("Журнал успешно добавлен", "Успешно!", 0, MessageBoxImage.Asterisk);
+                MessageBox.Show("Газета успешно добавлен", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
@@ -336,12 +336,14 @@ namespace kyrsovaya_2k
 
         private void edit_b(object sender, RoutedEventArgs e)
         {
-
+            edit_a Kurisu = new edit_a();
+            Kurisu.Show();
         }
 
         private void edit_u(object sender, RoutedEventArgs e)
         {
-
+            edit_a Kurisu = new edit_a();
+            Kurisu.Show();
         }
 
     }

@@ -55,7 +55,7 @@ namespace kyrsovaya_2k
             DataRowView row = authorss.SelectedItem as DataRowView;
             authsur.Text = row.Row.ItemArray[1].ToString();
             authname.Text = row.Row.ItemArray[2].ToString();
-            authpatr.Text = row.Row.ItemArray[3].ToString();   
+            authpatr.Text = row.Row.ItemArray[3].ToString();
             authyear.Text = row.Row.ItemArray[4].ToString();
         }
 
@@ -63,7 +63,7 @@ namespace kyrsovaya_2k
         {
             DataRowView row = books.SelectedItem as DataRowView;
             authorsid.SelectedValue = row.Row.ItemArray[1];
-            book_name.Text = row.Row.ItemArray[2].ToString();     
+            book_name.Text = row.Row.ItemArray[2].ToString();
             book_year.Text = row.Row.ItemArray[3].ToString();
             book_ava.Text = row.Row.ItemArray[4].ToString();
 
@@ -97,7 +97,7 @@ namespace kyrsovaya_2k
         private void add_authh(object sender, RoutedEventArgs e)
         {
             DataRowView row = authorss.SelectedItem as DataRowView;
-            if (a.edit(Convert.ToInt32(row.Row.ItemArray[0].ToString()),authsur.Text, authname.Text, authpatr.Text, authyear.Text, "",0,0,0) == 0)
+            if (a.edit(Convert.ToInt32(row.Row.ItemArray[0].ToString()), authsur.Text, authname.Text, authpatr.Text, authyear.Text, "", 0, 0, 0) == 0)
             {
                 MessageBox.Show("Автор успешно изменен!", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
@@ -121,7 +121,7 @@ namespace kyrsovaya_2k
             }
             up_to_date();
         }
-       
+
 
         private void sear_TextChanged(object sender, TextChangedEventArgs e)
         {

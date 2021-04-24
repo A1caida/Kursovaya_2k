@@ -25,7 +25,7 @@ namespace kyrsovaya_2k
     {
         public string surn { get; set; }
         public string name { get; set; }
-        public string patr { get; set; }    
+        public string patr { get; set; }
         public string born { get; set; }
 
     }
@@ -119,7 +119,7 @@ namespace kyrsovaya_2k
 
             var records = new List<Foo>();
             using (var reader = new StreamReader(filename))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            using (var csv = new CsvReader(reader, CultureInfo.CurrentCulture))
             {
 
                 csv.Read();
@@ -154,7 +154,7 @@ namespace kyrsovaya_2k
 
                 int book_id = 0;
                 command = Connection.CreateCommand();
-                command.CommandText = "SELECT id FROM books where books.name ="+ i.name;
+                command.CommandText = "SELECT id FROM books where books.name ='" + i.name + "'";
                 Connection.Open();
                 using (DbDataReader reader = command.ExecuteReader())
                     while (reader.Read())
@@ -176,9 +176,9 @@ namespace kyrsovaya_2k
                         Connection.Close();
                         break;
                     default:
-                        command.CommandText = "UPDATE `books` SET `available`= available+ "+ i.ava +" WHERE `id`="+ book_id + ";";
+                        command.CommandText = "UPDATE `books` SET `available`= available+ " + i.ava + " WHERE `id`=" + book_id + ";";
                         break;
-                }  
+                }
             }
             return 0;
         }
@@ -265,7 +265,7 @@ namespace kyrsovaya_2k
         public int add_books(int id, string name, int available, string year)
         {
             MySqlCommand command = Connection.CreateCommand();
-            command.CommandText = "INSERT INTO books(autthor_id, name, year,available) VALUES(?autthor_id, ?name, ?year, ?available)";//INSERT INTO `biblioteka`.`books` (`autthor_id`, `name`, `year`, `available`) VALUES ('3', 'Детство', '1852', '1');
+            command.CommandText = "INSERT INTO books(autthor_id, name, year,available) VALUES(?autthor_id, ?name, ?year, ?available)";
             command.Parameters.Add("?autthor_id", MySqlDbType.Int32).Value = id;
             command.Parameters.Add("?name", MySqlDbType.VarChar).Value = name;
             command.Parameters.Add("?year", MySqlDbType.VarChar).Value = year;
@@ -393,14 +393,14 @@ namespace kyrsovaya_2k
             }
             return -1;
         }
-        public int edit(int id, string surname, string name, string patr, string year, string phone, int ava, int auth_id, int ch )
+        public int edit(int id, string surname, string name, string patr, string year, string phone, int ava, int auth_id, int ch)
         {
             MySqlCommand command = Connection.CreateCommand();
             switch (ch)
             {
                 case 0:
-                   
-                    command.CommandText = "UPDATE `author_info` SET `surname`='"+ surname + "',`name`= '"+ name + "', `patronymic`= '"+ patr + "', `born` = '"+ year + "'  WHERE `id` =" + id;
+
+                    command.CommandText = "UPDATE `author_info` SET `surname`='" + surname + "',`name`= '" + name + "', `patronymic`= '" + patr + "', `born` = '" + year + "'  WHERE `id` =" + id;
                     try
                     {
                         Connection.Open();
@@ -418,7 +418,7 @@ namespace kyrsovaya_2k
                     return -1;
                 case 1:
 
-                    command.CommandText = "UPDATE `books` SET `autthor_id`=" + auth_id + ",`name`= '" + name + "', `year` = '" + year + "', `available` = "+ ava + "  WHERE `id` =" + id;
+                    command.CommandText = "UPDATE `books` SET `autthor_id`=" + auth_id + ",`name`= '" + name + "', `year` = '" + year + "', `available` = " + ava + "  WHERE `id` =" + id;
                     try
                     {
                         Connection.Open();
@@ -436,7 +436,7 @@ namespace kyrsovaya_2k
                     return -1;
 
                 default:
-                    command.CommandText = "UPDATE `user_info` SET `password` = '" + year + "',`surname`='" + surname + "',`name`= '" + name + "', `patronymic`= '" + patr + "', `phone` = " + phone + ", `ban` = "+ava+"  WHERE `id` =" + id;
+                    command.CommandText = "UPDATE `user_info` SET `password` = '" + year + "',`surname`='" + surname + "',`name`= '" + name + "', `patronymic`= '" + patr + "', `phone` = " + phone + ", `ban` = " + ava + "  WHERE `id` =" + id;
                     try
                     {
                         Connection.Open();
@@ -534,13 +534,13 @@ namespace kyrsovaya_2k
 
 
             MySqlCommand command = Connection.CreateCommand();
-           
+
             try
             {
                 foreach (var Kurisu in records)
                 {
                     Connection.Open();
-                    command.CommandText = "INSERT INTO `author_info` (`surname`, `name`, `patronymic`, `born`) VALUES ('"+ Kurisu.surn+ "', '"+ Kurisu.name+ "', '"+Kurisu.patr+"', '"+Kurisu.born+"')";
+                    command.CommandText = "INSERT INTO `author_info` (`surname`, `name`, `patronymic`, `born`) VALUES ('" + Kurisu.surn + "', '" + Kurisu.name + "', '" + Kurisu.patr + "', '" + Kurisu.born + "')";
                     command.ExecuteNonQuery();
                     Connection.Close();
                 }
@@ -557,7 +557,7 @@ namespace kyrsovaya_2k
             return -1;
         }
 
-        public int export(string name,int a)
+        public int export(string name, int a)
         {
             string kostil = "";
             string path = "";
@@ -568,7 +568,7 @@ namespace kyrsovaya_2k
             }
             path = path + "\\" + name + ".csv";
             MySqlCommand command = Connection.CreateCommand();
-            if(a ==0)
+            if (a == 0)
             {
                 try
                 {
@@ -667,7 +667,7 @@ namespace kyrsovaya_2k
                     MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
                     return -1;
                 }
-                
+
             }
 
         }
@@ -685,7 +685,7 @@ namespace kyrsovaya_2k
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message + " Ошибка! Обратитесь к администратору.", "Ошибка", 0, MessageBoxImage.Error);
             }
             finally
             {

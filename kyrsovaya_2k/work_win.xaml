@@ -456,7 +456,7 @@
                     </Grid>
                     <Grid Grid.Row="7" Grid.Column="1">
                         <Button Click="log_off"
-                                Content="Выйти из ситсемы"
+                                Content="Выйти из системы"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="White" FontSize="18" >
@@ -646,11 +646,11 @@
                                   IsReadOnly="True" 
                                   SelectionMode="Single" 
                                   Style="{DynamicResource DataGridStyle1}">
-                        <DataGrid.ItemContainerStyle>
-                            <Style TargetType="{x:Type DataGridRow}">
-                                <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick1_book"/>
-                            </Style>
-                        </DataGrid.ItemContainerStyle>
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick1_book"/>
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
                         </DataGrid>
                     </Grid>
 
@@ -708,7 +708,7 @@
                                           VerticalAlignment="Center"/>
                                     </Border>
                                 </ControlTemplate>
-                            </Button.Template>             
+                            </Button.Template>
                         </Button>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
@@ -752,7 +752,7 @@
                                    FontWeight="Medium"
                                    HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
-                        
+
                     </Grid>
                     <Grid Grid.Row="4" Grid.Column="0">
                         <Button Click="edit_u"
@@ -1325,11 +1325,11 @@
                                   IsReadOnly="True" 
                                   SelectionMode="Single" 
                                   Style="{DynamicResource DataGridStyle1}">
-                        <DataGrid.ItemContainerStyle>
-                            <Style TargetType="{x:Type DataGridRow}">
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
                                     <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick_book_users"/>
-                            </Style>
-                        </DataGrid.ItemContainerStyle>
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
                         </DataGrid>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
@@ -1371,15 +1371,55 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Grid.Column="0">
-                        <TextBox x:Name="searchofusers" Width="269" Height="20" HorizontalAlignment="Center"  VerticalAlignment="Center" PreviewTextInput="LettersOnly"/>
+                        <TextBox x:Name="searchofusers" 
+                                 Width="269" Height="20" 
+                                 HorizontalAlignment="Center"  
+                                 VerticalAlignment="Center" 
+                                 PreviewTextInput="LettersOnly"
+                                 Style="{DynamicResource stylefortext}"/>
                     </Grid>
 
                     <Grid Grid.Row="1" Grid.Column="0">
-                        <Button x:Name="but" Click="sear_us" Content="Поиск"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
-
+                        <Button Click="sear_us" 
+                                Content="Поиск"  
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Width="170" Height="33"
+                                Foreground="White">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="170" Height="33"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
-                        <DataGrid x:Name="listofusers" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" >
+                        <DataGrid x:Name="listofusers" 
+                                  ItemsSource="{Binding}" 
+                                  AutoGenerateColumns="True" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center" 
+                                  Height="200" Width="378"
+                                  RowHeight="16" 
+                                  IsReadOnly="True" 
+                                  SelectionMode="Single" 
+                                  Style="{DynamicResource DataGridStyle1}">
                             <DataGrid.ItemContainerStyle>
                                 <Style TargetType="{x:Type DataGridRow}">
                                     <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick"/>
@@ -1388,10 +1428,52 @@
                         </DataGrid>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
-                        <DataGrid x:Name="logsofbooks" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                        <DataGrid x:Name="logsofbooks" 
+                                  ItemsSource="{Binding}" 
+                                  AutoGenerateColumns="True" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center" 
+                                  Height="200" Width="378" 
+                                  RowHeight="16" 
+                                  IsReadOnly="True" 
+                                  SelectionMode="Single" 
+                                  Style="{DynamicResource DataGridStyle1}">
+                            <DataGrid.ItemContainerStyle>
+                                <Style TargetType="{x:Type DataGridRow}">
+                                    <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick"/>
+                                </Style>
+                            </DataGrid.ItemContainerStyle>
+                        </DataGrid>
                     </Grid>
                     <Grid Grid.Row="7" Grid.Column="1">
-                        <Button x:Name="block" Click="ban_ham" Content="Заблокировать"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" Margin="10,5,0,5"  />
+                        <Button Click="ban_ham" 
+                                Content="Заблокировать"  
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Width="170" Height="33" 
+                                Foreground="White">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="170" Height="33"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -1413,21 +1495,155 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Grid Grid.Row="1" Grid.Column="0">
-                        <Button x:Name="imp" Click="imp_auth" Content="Импорт авторов"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
-                    </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <Button x:Name="exp" Click="exp_auth" Content="Экспорт авторов"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
+                    <Grid Grid.Row="2" Grid.Column="0">
+                        <Button x:Name="imp" 
+                                Click="imp_auth" 
+                                Content="Импорт авторов"  
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Width="170" Height="33" 
+                                Foreground="White">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="170" Height="33"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1">
-                        <TextBox x:Name="exp_name"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33" />
+                        <Button x:Name="exp" 
+                                Click="exp_auth" 
+                                Content="Экспорт авторов"  
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Width="170" Height="33"                                  Foreground="White">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="170" Height="33"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
-                  
-                    <Grid Grid.Row="2" Grid.Column="0">
-                        <Button Click="imp_book" Content="Импорт книг"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <TextBox x:Name="exp_name" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center" 
+                                 Width="170" Height="33" 
+                                 FontFamily="fonts/#Noto Sans"
+                                 FontSize="22"
+                                 Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Имя файла" 
+                                   FontSize="22"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="170"
+                                   Height="32">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=exp_name}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+
+                    <Grid Grid.Row="3" Grid.Column="0">
+                        <Button Click="imp_book" 
+                                Content="Импорт книг"  
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Width="170" Height="33" 
+                                Foreground="White">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="170" Height="33"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                     <Grid Grid.Row="3" Grid.Column="1">
-                        <Button Click="exp_book" Content="Экспорт книг"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"  />
+                        <Button Click="exp_book" 
+                                Content="Экспорт книг"  
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Width="170" Height="33"   Foreground="White">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="170" Height="33"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -1450,15 +1666,98 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
-                        <DataGrid x:Name="ychet_data" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
-                    </Grid>
-                    <Grid Grid.Row="1" Grid.Column="1">
-                        <ComboBox ItemsSource="{Binding}" x:Name="oper_id" HorizontalAlignment="Left" VerticalAlignment="Center" Width="178" Height="23" DisplayMemberPath="name" SelectedValuePath="id" IsTextSearchEnabled="False" IsEditable="False"   />
-                        <Button x:Name="vpered_k_dengam" Content="Учет!" Click="money_ych" HorizontalAlignment="right" VerticalAlignment="Center" Width="186" Height="23"  />
+                        <DataGrid x:Name="ychet_data" 
+                                  ItemsSource="{Binding}" 
+                                  AutoGenerateColumns="True" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center" 
+                                  Height="200" Width="378" 
+                                  RowHeight="16" 
+                                  IsReadOnly="True" 
+                                  SelectionMode="Single" 
+                                  Style="{DynamicResource DataGridStyle1}"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1">
-                        <TextBox x:Name="money" HorizontalAlignment="Left" VerticalAlignment="Center" Width="186" Height="23" />
-                        <TextBox x:Name="lists" HorizontalAlignment="Right" VerticalAlignment="Center" Width="186" Height="23" />
+                        <ComboBox ItemsSource="{Binding}" x:Name="oper_id" HorizontalAlignment="Left" VerticalAlignment="Center" Width="186" Height="23" DisplayMemberPath="name" SelectedValuePath="id" IsTextSearchEnabled="False" IsEditable="False" Margin="0,10"   />
+                        <Button Content="Учет!" 
+                                Click="money_ych" 
+                                HorizontalAlignment="right" 
+                                VerticalAlignment="Center" 
+                                Width="186" Height="23"  Foreground="White" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="186" Height="23"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="3" Grid.Column="1">
+                        <TextBox x:Name="money" 
+                                 HorizontalAlignment="Left" 
+                                 VerticalAlignment="Center" 
+                                 Width="186" Height="23" 
+                                 Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Цена за лист" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Left" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="186"
+                                   Height="20"                   >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=money}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBox x:Name="lists" 
+                                 HorizontalAlignment="Right" 
+                                 VerticalAlignment="Center" 
+                                 Width="186" Height="23" 
+                                 Style="{DynamicResource stylefortext}"/>
+                        <TextBlock IsHitTestVisible="False" 
+                                   Text="Кол-во листов" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Right" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="186"
+                                   Height="20"                   >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=lists}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -1481,13 +1780,53 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Row="0" Grid.Column="0">
-                        <TextBox x:Name="sear_post" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="269" Height="20" />
+                        <TextBox x:Name="sear_post" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center" 
+                                 Width="269" Height="20" 
+                                 Style="{DynamicResource stylefortext}"/>
                     </Grid>
                     <Grid Grid.Row="1" Grid.Column="0">
-                        <Button Content="Поиск" Click="post_sear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="170" Height="33"/>
+                        <Button Content="Поиск" 
+                                Click="post_sear" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center" 
+                                Width="170" Height="33" 
+                                Foreground="White">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="TextElement.FontFamily" Value="fonts/#Noto Sans"/>
+                                    <Setter Property="Background" Value="#5181b8"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#2e5a8c"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border  Width="170" Height="33"
+                                            CornerRadius="7"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="5">
-                        <DataGrid x:Name="post" ItemsSource="{Binding}" AutoGenerateColumns="True" HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="378" RowHeight="16" IsReadOnly="True" SelectionMode="Single" />
+                        <DataGrid x:Name="post" 
+                                  ItemsSource="{Binding}" 
+                                  AutoGenerateColumns="True"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center" 
+                                  Height="200" Width="378" 
+                                  RowHeight="16"
+                                  IsReadOnly="True" 
+                                  SelectionMode="Single" 
+                                  Style="{DynamicResource DataGridStyle1}"/>
                     </Grid>
                     <Grid Grid.Row="2" Grid.Column="1" Grid.RowSpan="5">
                         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Center" VerticalAlignment="Center"  Stroke="Black"  Height="200" Width="378"/>
