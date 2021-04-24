@@ -18,20 +18,52 @@ namespace kyrsovaya_2k
     /// <summary>
     /// Логика взаимодействия для edit_a.xaml
     /// </summary>
+
     public partial class edit_a : Window
     {
 
-        private void up_to_date()
+        int lvl = 0;
+
+        private void up_to_date(int lvl)
         {
             authorss.DataContext = a.getTableInfoo("SELECT id AS '#', surname AS 'Фамилия', author_info.name AS 'Имя', patronymic AS 'Отчество',born AS 'Год рождения' FROM author_info");
             authorsid.ItemsSource = a.getTableInfoo("SELECT id, surname FROM author_info").AsDataView();
             books.DataContext = a.getTableInfoo("SELECT id AS '#',autthor_id AS 'Номер автора', books.name AS 'Название',  year AS 'Год', available AS 'Наличие' FROM books");
-            users.DataContext = a.getTableInfoo("SELECT id AS '#', login AS 'Логин',password AS 'Пароль', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество', phone AS 'Номер телефона', ban AS 'Блокировка' FROM user_info WHERE lvl != 3");
+            if(lvl == 3)
+                users.DataContext = a.getTableInfoo("SELECT id AS '#', login AS 'Логин',password AS 'Пароль', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество', phone AS 'Номер телефона', ban AS 'Блокировка' , lvl as 'Уровень доступа' FROM user_info ");
+            else
+                users.DataContext = a.getTableInfoo("SELECT id AS '#', login AS 'Логин',password AS 'Пароль', surname AS 'Фамилия', NAME AS 'Имя', patronymic AS 'Отчество', phone AS 'Номер телефона', ban AS 'Блокировка' FROM user_info WHERE lvl != 3");
         }
-        public edit_a()
+        public edit_a(int Kurisu, int edit)
         {
             InitializeComponent();
-            up_to_date();
+            lvl = Kurisu;
+            up_to_date(lvl);
+            if (lvl != 3)
+            {
+                userlvl.Visibility = Visibility.Collapsed;
+                texboxlvl.Visibility = Visibility.Collapsed;
+            }
+            user.Visibility = Visibility.Collapsed;
+            book.Visibility = Visibility.Collapsed;
+            authors.Visibility = Visibility.Collapsed;
+            switch (edit)
+            {
+                case 1:
+                    authors.Visibility = Visibility.Visible;
+                    authors.IsSelected = true;
+                    break;
+                case 2:
+                    book.Visibility = Visibility.Visible;
+                    book.IsSelected = true;
+                    break;
+                default:
+                    user.Visibility = Visibility.Visible;
+                    user.IsSelected = true;
+                    break;
+
+            }
+               
         }
 
         db_work a = new db_work("95.104.192.212", "A1caida", "REvisE9023800", "A1caida");
@@ -78,20 +110,22 @@ namespace kyrsovaya_2k
             userpatr.Text = row.Row.ItemArray[5].ToString();
             userphone.Text = row.Row.ItemArray[6].ToString();
             ban.Text = row.Row.ItemArray[7].ToString();
+            if(lvl == 3)
+                userlvl.Text = row.Row.ItemArray[8].ToString();
         }
 
         private void add_users(object sender, RoutedEventArgs e)
         {
             DataRowView row = users.SelectedItem as DataRowView;
-            if (a.edit(Convert.ToInt32(row.Row.ItemArray[0].ToString()), userfam.Text, username.Text, userpatr.Text, password.Text, userphone.Text, Convert.ToInt32(ban.Text), 0, 2) == 0)
+            if (a.edit(Convert.ToInt32(row.Row.ItemArray[0].ToString()), userfam.Text, username.Text, userpatr.Text, password.Text, userphone.Text, Convert.ToInt32(ban.Text), Convert.ToInt32(userlvl.Text), 2) == 0)
             {
-                MessageBox.Show("Книга успешно изменена!", "Успешно!", 0, MessageBoxImage.Asterisk);
+                MessageBox.Show("Пользователь успешно изменен!", "Успешно!", 0, MessageBoxImage.Asterisk);
             }
             else
             {
-                MessageBox.Show("Ошибка изменения книги", "Ошибка!", 0, MessageBoxImage.Error);
+                MessageBox.Show("Ошибка изменения пользователя", "Ошибка!", 0, MessageBoxImage.Error);
             }
-            up_to_date();
+            up_to_date(lvl);
         }
 
         private void add_authh(object sender, RoutedEventArgs e)
@@ -105,7 +139,7 @@ namespace kyrsovaya_2k
             {
                 MessageBox.Show("Ошибка изменения автора", "Ошибка!", 0, MessageBoxImage.Error);
             }
-            up_to_date();
+            up_to_date(lvl);
         }
 
         private void add_books(object sender, RoutedEventArgs e)
@@ -119,7 +153,7 @@ namespace kyrsovaya_2k
             {
                 MessageBox.Show("Ошибка изменения книги", "Ошибка!", 0, MessageBoxImage.Error);
             }
-            up_to_date();
+            up_to_date(lvl);
         }
 
 

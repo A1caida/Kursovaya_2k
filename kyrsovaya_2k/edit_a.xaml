@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kyrsovaya_2k"
         mc:Ignorable="d"
-        Title="Редактировать" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Редактировать" Height="450" Width="900" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
             <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
@@ -148,7 +148,7 @@
                                   HorizontalAlignment="Center" 
                                   VerticalAlignment="Center" 
                                   Height="200" 
-                                  Width="378"
+                                  Width="424"
                                   RowHeight="16" 
                                   IsReadOnly="True" 
                                   SelectionMode="Single" 
@@ -284,7 +284,7 @@
                             </TextBlock.Style>
                         </TextBlock>
                     </Grid>
-                    <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                    <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" >
                         <Button Click="add_authh"
                                 Content="Изменить автора"
                                 FontSize="40"
@@ -350,7 +350,7 @@
                                   HorizontalAlignment="Center" 
                                   VerticalAlignment="Center" 
                                   Height="200" 
-                                  Width="378"
+                                  Width="424"
                                   RowHeight="16" 
                                   IsReadOnly="True" 
                                   SelectionMode="Single" 
@@ -468,7 +468,7 @@
                             </TextBlock.Style>
                         </TextBlock>
                     </Grid>
-                    <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                    <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" >
                         <Button Click="add_books"
                                 Content="Изменить книгу"
                                 FontSize="40"
@@ -534,11 +534,11 @@
                                   HorizontalAlignment="Center" 
                                   VerticalAlignment="Center" 
                                   Height="200" 
-                                  Width="378"
+                                  Width="424"
                                   RowHeight="16" 
                                   IsReadOnly="True" 
                                   SelectionMode="Single" 
-                                  Style="{DynamicResource DataGridStyle1}">
+                                  Style="{DynamicResource DataGridStyle1}" >
                             <DataGrid.ItemContainerStyle>
                                 <Style TargetType="{x:Type DataGridRow}">
                                     <EventSetter Event="Control.MouseDoubleClick" Handler="Row_DoubleClick_users"/>
@@ -670,6 +670,38 @@
                             </TextBlock.Style>
                         </TextBlock>
                     </Grid>
+                    <Grid Grid.Row="5" Grid.Column="1" >
+                        <TextBox x:Name="userlvl" 
+                                 Width="190" 
+                                 Height="20" 
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"  
+                                 PreviewTextInput="NumericOnly" 
+                                 FontFamily="fonts/#Noto Sans"
+                                 Style="{DynamicResource stylefortext}"/>
+
+                        <TextBlock x:Name="texboxlvl"
+                                   IsHitTestVisible="False" 
+                                   Text="Уровень доступа" 
+                                   FontSize="15"
+                                   FontFamily="fonts/#Noto Sans"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"  
+                                   Foreground="DarkGray"
+                                   Width="190"
+                                   Height="20"                  >
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=userlvl}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
                     <Grid Grid.Row="3" Grid.Column="2" >
                         <TextBox x:Name="password" 
                                  Width="190" 
@@ -734,7 +766,7 @@
                             </TextBlock.Style>
                         </TextBlock>
                     </Grid>
-                    <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                    <Grid Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" >
                         <Button Click="add_users"
                                 Content="Изменить читателя"
                                 FontSize="40"

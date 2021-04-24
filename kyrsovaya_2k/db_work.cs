@@ -436,7 +436,7 @@ namespace kyrsovaya_2k
                     return -1;
 
                 default:
-                    command.CommandText = "UPDATE `user_info` SET `password` = '" + year + "',`surname`='" + surname + "',`name`= '" + name + "', `patronymic`= '" + patr + "', `phone` = " + phone + ", `ban` = " + ava + "  WHERE `id` =" + id;
+                    command.CommandText = "UPDATE `user_info` SET `password` = '" + year + "',`surname`='" + surname + "',`name`= '" + name + "', `patronymic`= '" + patr + "', `phone` = " + phone + ", `ban` = " + ava + ",`lvl` = "+ auth_id+ "  WHERE `id` =" + id;
                     try
                     {
                         Connection.Open();

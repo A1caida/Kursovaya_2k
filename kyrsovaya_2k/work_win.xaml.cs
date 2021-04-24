@@ -330,19 +330,19 @@ namespace kyrsovaya_2k
         }
         private void edit_a(object sender, RoutedEventArgs e)
         {
-            edit_a Kurisu = new edit_a();
+            edit_a Kurisu = new edit_a(lvl,1);
             Kurisu.Show();
         }
 
         private void edit_b(object sender, RoutedEventArgs e)
         {
-            edit_a Kurisu = new edit_a();
+            edit_a Kurisu = new edit_a(lvl,2);
             Kurisu.Show();
         }
 
         private void edit_u(object sender, RoutedEventArgs e)
         {
-            edit_a Kurisu = new edit_a();
+            edit_a Kurisu = new edit_a(lvl,3);
             Kurisu.Show();
         }
 
